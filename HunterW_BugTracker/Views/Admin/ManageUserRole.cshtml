@@ -1,0 +1,50 @@
+﻿@using HunterW_BugTracker.Models
+@{ 
+	ViewBag.Title = "Manage User Role";
+}
+
+<div class="main">
+	<div class="main__scroll scrollbar-macosx">
+		<div class="main__cont">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-danger">
+						<div class="panel-heading">
+							<h3 class="panel-title">Manage User Role</h3>
+						</div>
+						<div class="panel-body">
+							<p>
+								Assign a role to a user.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid half-padding">
+				<!-- BEGIN MAIN SECTION -->
+				@using (Html.BeginForm())
+				{
+					@Html.AntiForgeryToken()
+					@Html.Hidden("UserId", (string)ViewBag.UserId)
+					<div class="row">
+						<div class="form-group">
+							@Html.Label("Assign Role", htmlAttributes: new { @class = "control-label col-md-2 text-right" })
+							<div class="col-md-2">
+								@Html.DropDownList("RoleName", null, "-- Select Role --", htmlAttributes: new { @class = "form-control" })
+							</div>
+							<div class="col-md-2">
+								<input type="submit" value="Save" class="btn btn-default" />
+							</div>
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-6 text-center">
+							<a href="/Admin/AdminUserIndex">Return to User Index</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>

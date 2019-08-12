@@ -1,0 +1,51 @@
+﻿@model HunterW_BugTracker.Models.Project
+
+@{
+	ViewBag.Title = "Details";
+}
+
+<div class="main">
+	<div class="main__scroll scrollbar-macosx">
+		<div class="main__cont">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-danger">
+						<div class="panel-heading">
+							<h3 class="panel-title">Project Details</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid half-padding">
+				<dl class="dl-horizontal">
+					<dt>
+						@Html.DisplayNameFor(model => model.Name)
+					</dt>
+
+					<dd>
+						@Html.DisplayFor(model => model.Name)
+					</dd>
+
+					<dt>
+						@Html.DisplayNameFor(model => model.Description)
+					</dt>
+
+					<dd>
+						@Html.DisplayFor(model => model.Description)
+					</dd>
+
+					<dt>
+						@Html.DisplayNameFor(model => model.Created)
+					</dt>
+
+					<dd>
+						@Html.DisplayFor(model => model.Created)
+					</dd>
+				</dl>
+				<table>
+					<!-- TICKETS GO HERE -->
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

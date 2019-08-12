@@ -1,0 +1,67 @@
+﻿@model IEnumerable<HunterW_BugTracker.Models.TicketStatus>
+
+<!-- Data Tables Stuff -->
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+<div class="main">
+	<div class="main__scroll scrollbar-macosx">
+		<div class="main__cont">
+			<div class="container-fluid half-padding">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h3 class="panel-title">Ticket Statuses</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Below is a list of all ticket statuses. You may sort them alphabetically by name or description, and you may manage them using the links on the right side of the screen.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<a href="@Url.Action("Create", "TicketStatus")">Create New Ticket Status</a>
+				<p></p>
+				<table id="userindextable" class="table">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.Name)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Description)
+							</th>
+							<th>
+								@Html.DisplayName("Manage")
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.Name)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Description)
+								</td>
+								<td>
+									@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+									@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$("#userindextable").DataTable();
+</script>

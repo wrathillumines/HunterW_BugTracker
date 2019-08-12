@@ -1,0 +1,59 @@
+﻿@using HunterW_BugTracker.Models
+@model UploadAvatarViewModel
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Right - Bootstrap Admin Template</title>
+	<link rel="icon" type="image/png" href="~/Images/favicon.png">
+	@*<link rel="apple-touch-icon-precomposed" href="img/apple-touch-favicon.png">*@
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic" rel="stylesheet" type="text/css">
+	<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+	<link href="~/Content/awesome-bootstrap-checkbox.css" rel="stylesheet" />
+	<link href="~/Content/right.lilac.css" rel="stylesheet" />
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<body class="framed">
+	<div class="wrapper">
+		<div class="login">
+			@using (Html.BeginForm("UploadAvatar", "Account", FormMethod.Post, new { @class = "login__form", role = "form" }))
+			{
+				@Html.AntiForgeryToken()
+				<div class="login__logo"></div>
+				<div class="form-group">
+					@Html.LabelFor(model => model.AvatarUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8">
+						<input name="image" type="file" id="fileUpload" />
+						@Html.ValidationMessageFor(model => model.AvatarUrl, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group login__action">
+					<div class="login__submit">
+						@*<button class="btn btn-default" name="image" type="submit">Upload</button>*@
+						<input type="submit" value="Upload" class="btn btn-default" />
+					</div>
+				</div>
+				@*
+				<div class="form-group login__action">
+					<div class="login__submit">
+						<button class="btn btn-default" name="image" type="button" id="fileUpload">Upload Avatar</button>
+						<button class="btn btn-default" type="submit">Register</button>
+						<input type="button" class="btn btn-default" value="Return to Login" onclick="location.href='@Url.Action("Login", "Account")'" />
+					</div>
+				</div>*@
+			}
+		</div>
+	</div>
+	<script src="~/Scripts/jquery.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
