@@ -265,6 +265,7 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <None Include="private.config" />
+    <None Include="Properties\PublishProfiles\hwerrortracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\charts.js" />
     <Content Include="Scripts\controls.js" />
@@ -307,8 +308,8 @@
     <None Include="Views\Admin\ManageUserProjects.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Admin\AdminUserIndex.cshtml" />
-    <None Include="Views\Account\login.cshtml" />
-    <Content Include="Views\Account\register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Scripts\orders.js" />
     <Content Include="Scripts\products.js" />
     <Content Include="Scripts\table_data.js" />
@@ -316,6 +317,7 @@
     <Content Include="Scripts\texteditor.js" />
     <Content Include="Scripts\users.js" />
     <Content Include="Scripts\validation.js" />
+    <Content Include="Views\Shared\blank.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -328,15 +330,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Projects\ManageProjectUsers.cshtml" />
-    <None Include="Views\Shared\_Layout.old" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <None Include="Views\Account\Login.old" />
-    <None Include="Views\Account\Register.old" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -394,6 +393,8 @@
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Admin\ManageUserTickets.cshtml" />
+    <Content Include="Views\Projects\SubmitterProjectIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

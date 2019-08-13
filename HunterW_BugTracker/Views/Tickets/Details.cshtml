@@ -19,10 +19,9 @@
 					</div>
 				</div>
 				<div>
-					<hr />
 					<dl class="dl-horizontal">
 						<dt>
-							@Html.DisplayNameFor(model => model.AssignedToUser.FirstName)
+							@Html.DisplayName("Assigned To")
 						</dt>
 
 						<dd>
@@ -30,15 +29,15 @@
 						</dd>
 
 						<dt>
-							@Html.DisplayNameFor(model => model.OwnerUser.FirstName)
+							@Html.DisplayName("Created By")
 						</dt>
 
 						<dd>
-							@Html.DisplayFor(model => model.OwnerUser.FirstName)
+							@Html.DisplayFor(model => model.OwnerUser.DisplayName)
 						</dd>
 
 						<dt>
-							@Html.DisplayNameFor(model => model.Project.Name)
+							@Html.DisplayName("Project")
 						</dt>
 
 						<dd>
@@ -46,7 +45,7 @@
 						</dd>
 
 						<dt>
-							@Html.DisplayNameFor(model => model.TicketPriority.Name)
+							@Html.DisplayName("Priority")
 						</dt>
 
 						<dd>
@@ -54,7 +53,7 @@
 						</dd>
 
 						<dt>
-							@Html.DisplayNameFor(model => model.TicketStatus.Name)
+							@Html.DisplayName("Status")
 						</dt>
 
 						<dd>
@@ -62,7 +61,7 @@
 						</dd>
 
 						<dt>
-							@Html.DisplayNameFor(model => model.TicketType.Name)
+							@Html.DisplayName("Type")
 						</dt>
 
 						<dd>

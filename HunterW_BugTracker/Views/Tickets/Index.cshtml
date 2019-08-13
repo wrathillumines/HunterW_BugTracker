@@ -17,7 +17,7 @@
 							</div>
 							<div class="panel-body">
 								<p>
-									Below is a list of all tickets. You may sort them alphabetically by name or description, and you may manage them using the links on the right side of the screen.
+									Below is a list of all tickets. You may sort them alphabetically by name or description, and you may manage them using the links on the right side of the screen. Click on a ticket title to view the details of that ticket.
 								</p>
 							</div>
 						</div>
@@ -65,13 +65,13 @@
 						{
 							<tr>
 								<td>
-									@Html.DisplayFor(modelItem => item.Title)
+									@Html.ActionLink(item.Title, "Details", new { id = item.Id })
 								</td>
 								<td>
 									@Html.DisplayFor(modelItem => item.Project.Name)
 								</td>
 								<td>
-									@Html.DisplayFor(modelItem => item.OwnerUser.LastName)
+									@Html.DisplayFor(modelItem => item.OwnerUser.DisplayName)
 								</td>
 								<td>
 									@Html.DisplayFor(modelItem => item.TicketPriority.Name)

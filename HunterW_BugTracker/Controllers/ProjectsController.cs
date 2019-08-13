@@ -134,6 +134,12 @@ namespace HunterW_BugTracker.Controllers
             base.Dispose(disposing);
         }
 
+        //GET: Submitter Project Index
+        public ActionResult SubmitterProjectIndex()
+        {
+            return View(db.Projects.ToList());
+        }
+
         ////GET: Manage Project Users
         //public ActionResult ManageProjectUsers(int projectId)
         //{

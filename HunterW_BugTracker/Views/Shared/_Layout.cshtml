@@ -54,6 +54,7 @@
 			</div>
 			<div class="topnavbar">
 				<ul class="userbar nav navbar-nav">
+					@Html.ActionLink("Log Off", "Login", "Account", FormMethod.Post, new { id = "logoutform" })
 					<li class="dropdown">
 						<a class="userbar__settings dropdown-toggle" href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-power-off"></i></a>
 						<ul class="dropdown-menu dropdown-menu-right">
@@ -105,7 +106,7 @@
 
 								<!--USERS-->
 
-								@if (User.IsInRole("Admin"))
+								@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
 								{
 									<li>
 										<a href="#">
@@ -150,7 +151,7 @@
 										@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
 										{
 											<li><a href="/Projects/Index">All Projects</a></li>
-											<li><a href="/Projects/Create">Create</a></li>
+											<li><a href="/Projects/Create">Create Project</a></li>
 											<li><a href="#">Assign Users</a></li>
 										}
 									</ul>

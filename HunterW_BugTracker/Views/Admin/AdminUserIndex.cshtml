@@ -83,6 +83,10 @@
 										@Html.ActionLink("Manage Role | ", "ManageUserRole", "Admin", new { userId = user.Id }, null)
 									}
 									@Html.ActionLink("Manage Projects", "ManageUserProjects", "Admin", new { userId = user.Id }, null)
+									@*@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+									{
+										@Html.ActionLink(" | Manage Tickets", "ManageUserTickets", "Admin", new { userId = user.Id }, null)
+									}*@
 								</td>
 							</tr>
 						}
