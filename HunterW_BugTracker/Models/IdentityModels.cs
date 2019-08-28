@@ -18,12 +18,14 @@ namespace HunterW_BugTracker.Models
         //virtual
 
         public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
         public virtual ICollection<TicketAttachment> TicketAttachments { get; set; }
         public virtual ICollection<TicketComment> TicketComments { get; set; }
         public virtual ICollection<TicketHistory> TicketHistories { get; set; }
         public ApplicationUser()
         {
             Projects = new HashSet<Project>();
+            Tickets = new HashSet<Ticket>();
             TicketAttachments = new HashSet<TicketAttachment>();
             TicketComments = new HashSet<TicketComment>();
             TicketHistories = new HashSet<TicketHistory>();
@@ -59,5 +61,6 @@ namespace HunterW_BugTracker.Models
         public DbSet<TicketStatus> TicketStatuses { get; set; }
         public DbSet<TicketPriority> TicketPriorities { get; set; }
         public DbSet<TicketType> TicketTypes { get; set; }
+
     }
 }

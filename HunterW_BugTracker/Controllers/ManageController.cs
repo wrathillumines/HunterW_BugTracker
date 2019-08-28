@@ -238,10 +238,16 @@ namespace HunterW_BugTracker.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("PasswordChangeSuccess");
             }
             AddErrors(result);
             return View(model);
+        }
+
+        //GET: Success
+        public ActionResult PasswordChangeSuccess()
+        {
+            return View();
         }
 
         //

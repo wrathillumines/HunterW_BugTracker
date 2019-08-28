@@ -9,7 +9,8 @@ namespace HunterW_BugTracker.Helpers
 {
     public class ProjectsHelper
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
+        private UserRolesHelper rolesHelper = new UserRolesHelper();
 
         public bool IsUserOnProject(string userId, int projectId)
         {
@@ -61,12 +62,17 @@ namespace HunterW_BugTracker.Helpers
             return db.Users.Where(u => u.Projects.All(p => p.Id != projectId)).ToList();
         }
 
-        //public void AddProjectToUser(string userId, int projectId)
-        //{
-        //    if (!IsUserOnProject(userId, projectId))
-        //    {
-        //        bah
-        //    }
-        //}
+        public List<string> UsersInRoleOnProject(int projectId, string roleName)
+        {
+            var people = new List<string>();
+            foreach(var user in UsersOnProject(projectId).ToList())
+            {
+                if(rolesHelper.IsUserInRole(user.Id, roleName))
+                {
+                    people.Add(user.Id);
+                }
+            }
+            return people;
+        }
     }
 }

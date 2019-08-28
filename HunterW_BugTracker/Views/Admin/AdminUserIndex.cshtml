@@ -32,9 +32,9 @@
 				<table id="userindextable" class="table">
 					<thead>
 						<tr>
-							@*<th>
+							<th>
 								@Html.DisplayName("Avatar")
-							</th>*@
+							</th>
 							<th>
 								@Html.DisplayNameFor(model => model.Email)
 							</th>
@@ -59,9 +59,9 @@
 						@foreach (var user in Model)
 						{
 							<tr>
-								@*<td class="avatar">
-									<img src="@user.AvatarUrl" class="img-responsive" />
-								</td>*@
+								<td class="avatar">
+									<img src="@user.AvatarUrl" height="47" width="47" />
+								</td>
 								<td>
 									@Html.DisplayFor(modelItem => user.Email)
 								</td>
@@ -83,10 +83,6 @@
 										@Html.ActionLink("Manage Role | ", "ManageUserRole", "Admin", new { userId = user.Id }, null)
 									}
 									@Html.ActionLink("Manage Projects", "ManageUserProjects", "Admin", new { userId = user.Id }, null)
-									@*@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-									{
-										@Html.ActionLink(" | Manage Tickets", "ManageUserTickets", "Admin", new { userId = user.Id }, null)
-									}*@
 								</td>
 							</tr>
 						}

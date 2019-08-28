@@ -1,0 +1,77 @@
+﻿@using HunterW_BugTracker.Helpers
+
+@model IEnumerable<HunterW_BugTracker.Models.Project>
+
+<!-- Data Tables Stuff -->
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+<div class="main">
+	<div class="main__scroll scrollbar-macosx">
+		<div class="main__cont">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-danger">
+						<div class="panel-heading">
+							<h3 class="panel-title">My Projects</h3>
+						</div>
+						<div class="panel-body">
+							<p>
+								Below is a list of all projects.You may sort them by any parameter.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid half-padding">
+				<p>
+					@Html.ActionLink("Create New", "Create")
+				</p>
+				<table id="userindextable" class="table">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.Name)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Description)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Created)
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.Name)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Description)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Created)
+								</td>
+								<td>
+									@Html.ActionLink("Details and Tickets", "Details", new { id = item.Id })
+									@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+									{
+										@Html.ActionLink("| Edit | ", "Edit", new { id = item.Id })
+										@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+									}
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$("#userindextable").DataTable();
+</script>

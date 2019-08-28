@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HunterW_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace HunterW_BugTracker.Controllers
 {
@@ -39,6 +40,7 @@ namespace HunterW_BugTracker.Controllers
         // GET: TicketComments/Create
         public ActionResult Create()
         {
+            ViewBag.Author = new SelectList(db.Users, "DisplayName");
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId");
             return View();
         }
@@ -48,16 +50,21 @@ namespace HunterW_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,UserId,CommentBody,Created")] TicketComment ticketComment)
+        public ActionResult Create([Bind(Include = "Id,TicketId,UserId,CommentBody,Created")] TicketComment ticketComment, string CommentBody)
         {
             if (ModelState.IsValid)
             {
+                ticketComment.CommentBody = CommentBody;
+                ticketComment.UserId = User.Identity.GetUserId();
+                ticketComment.AuthorId = User.Identity.GetUserId();
+                ticketComment.Created = DateTimeOffset.Now;
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard", "Tickets");
             }
 
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketComment.TicketId);
+            //ViewBag.Author = new SelectList(db.Users, "Id", "DisplayName", ticketComment.UserId);
+            //ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketComment.TicketId);
             return View(ticketComment);
         }
 

@@ -25,7 +25,7 @@
 						</dt>
 
 						<dd>
-							@Html.DisplayFor(model => model.AssignedToUser.FirstName)
+							@Html.DisplayFor(model => model.AssignedToUserId)
 						</dd>
 
 						<dt>
@@ -102,6 +102,37 @@
 
 					</dl>
 				</div>
+				@using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+				{
+					@Html.AntiForgeryToken()
+					@Html.Hidden("TicketId", Model.Id)
+					@Html.TextBox("CommentBody", "Leave A Comment", new { @class = "form-control" })
+					<button type="submit" class="btn btn-primary text-center">Save Comment</button>
+				}
+
+				@foreach (var comment in Model.TicketComments.OrderByDescending(c => c.Created))
+				{
+					<hr />
+					<div class="row">
+						<h4>Comment from @comment.Author.DisplayName on @comment.Created.ToString("MMMM d, yy") at @comment.Created.ToString("h:mm tt")</h4>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							@comment.CommentBody
+							@if (User.Identity.IsAuthenticated)
+							{
+								using (Html.BeginForm("Edit", "Comments", FormMethod.Get))
+								{
+									@*@Html.ActionLink("Edit", "Edit")*@
+									@*@Html.Hidden("slug", Model.Slug)*@
+									@Html.Hidden("Id", comment.Id)
+									<button type="submit" class="btn btn-primary">Edit</button>
+								}
+							}
+						</div>
+					</div>
+					<hr />
+				}
 			</div>
 		</div>
 	</div>

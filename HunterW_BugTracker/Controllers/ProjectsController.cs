@@ -1,5 +1,6 @@
 ﻿using HunterW_BugTracker.Helpers;
 using HunterW_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,17 +12,32 @@ using System.Web.Mvc;
 
 namespace HunterW_BugTracker.Controllers
 {
+    [RequireHttps]
+    [Authorize]
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private ProjectsHelper projHelper = new ProjectsHelper();
+        private UserRolesHelper rolesHelper = new UserRolesHelper();
 
-        // GET: Projects
+        // GET: All Projects
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Index()
         {
             return View(db.Projects.ToList());
         }
 
+        // GET: User's Assigned Projects
+        [Authorize]
+        public ActionResult UserIndex()
+        {
+            var userId = User.Identity.GetUserId();
+            var allProjects = projHelper.ListUserProjects(userId);
+
+            return View(allProjects.ToList());
+        }
+
+        [Authorize]
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
@@ -45,6 +61,7 @@ namespace HunterW_BugTracker.Controllers
         //ViewBag.Developers = new MultiSelectList();
 
         // GET: Projects/Create
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Create()
         {
             return View();
@@ -53,6 +70,7 @@ namespace HunterW_BugTracker.Controllers
         // POST: Projects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Project Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Created")] Project project)
@@ -69,6 +87,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,6 +107,7 @@ namespace HunterW_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Created")] Project project)
         {
             if (ModelState.IsValid)
@@ -100,6 +120,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,6 +136,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // POST: Projects/Delete/5
+        [Authorize(Roles = "Admin, Project Manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -135,9 +157,18 @@ namespace HunterW_BugTracker.Controllers
         }
 
         //GET: Submitter Project Index
-        public ActionResult SubmitterProjectIndex()
+        [Authorize(Roles = "Submitter")]
+        public ActionResult SubmitterProjectIndex(int? id)
         {
-            return View(db.Projects.ToList());
+            Project project = db.Projects.Find(id);
+            ViewBag.Tickets = db.Tickets.ToList();
+
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View();
         }
 
         ////GET: Manage Project Users

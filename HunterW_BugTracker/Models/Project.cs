@@ -32,4 +32,9 @@ namespace HunterW_BugTracker.Models
         public string Id { get; set; }
         public string Name { get; set; }
     }
+
+    public class ProjectTicketListView
+    {
+        public string ReturnUrl { get; set; }
+    }
 }

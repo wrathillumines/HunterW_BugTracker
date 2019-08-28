@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>HW Error Tracking</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,6 +46,13 @@
 				<div class="login__submit">
 					<button class="btn btn-default" type="submit">Sign in</button>
 					<input type="button" class="btn btn-default" value="Register" onclick="location.href='@Url.Action("Register", "Account")'" />
+				</div>
+				<br />
+				<br />
+				<div class="row">
+					<div class="col-md-12 text-center">
+						@Html.ActionLink("Forgot Password?", "ForgotPassword")
+					</div>
 				</div>
 			}
         </div>

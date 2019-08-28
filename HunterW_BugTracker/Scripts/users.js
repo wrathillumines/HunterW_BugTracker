@@ -50,7 +50,7 @@ $(document).ready(function() {
 				height: '34px',
 				barSpacing: 2,
 				barColor: '#1e59d9',
-				negBarColor: '#1c8ed7'
+				negBarColor: '#ed4949'
 			}
 		);
 	}

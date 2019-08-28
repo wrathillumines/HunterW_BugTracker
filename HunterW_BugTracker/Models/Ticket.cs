@@ -20,6 +20,8 @@ namespace HunterW_BugTracker.Models
 
         //virtual
 
+        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual Project Project { get; set; }
         public virtual TicketType TicketType { get; set; }
         public virtual TicketStatus TicketStatus { get; set; }

@@ -11,12 +11,18 @@
 				<div class="col-md-12">
 					<div class="panel panel-danger">
 						<div class="panel-heading">
-							<h3 class="panel-title">Project Details</h3>
+							<h3 class="panel-title">Project Details and Tickets</h3>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="container-fluid half-padding">
+				<div class="row">
+					<div class="col-xs-1 col-xs-offset-1">
+						<h6>DETAILS</h6>
+					</div>
+				</div>
+				<br />
 				<dl class="dl-horizontal">
 					<dt>
 						@Html.DisplayNameFor(model => model.Name)
@@ -42,9 +48,82 @@
 						@Html.DisplayFor(model => model.Created)
 					</dd>
 				</dl>
-				<table>
-					<!-- TICKETS GO HERE -->
-				</table>
+
+				<hr />
+				<div class="row">
+					<div class="col-xs-1 col-xs-offset-1">
+						<h6>TICKETS</h6>
+					</div>
+					<div class="col-xs-8">
+						<h6>This list starts with the most recent tickets. Click on the ticket title to view details of that ticket.</h6>
+					</div>
+				</div>
+				<br />
+
+				<div class="row">
+					@foreach (var item in Model.Tickets.OrderByDescending(t => t.Created))
+					{
+						<div class="col-md-3">
+							<dl class="dl-horizontal">
+								<dt>
+									@Html.DisplayName("Ticket Title")
+								</dt>
+
+								<dd>
+									@Html.DisplayFor(modelItem => item.Title)
+								</dd>
+
+								<dt>
+									@Html.DisplayName("Created By")
+								</dt>
+
+								<dd>
+									@Html.DisplayFor(modelItem => item.OwnerUser.DisplayName)
+								</dd>
+
+								<dt>
+									@Html.DisplayName("Priority")
+								</dt>
+
+								<dd>
+									@Html.DisplayFor(modelItem => item.TicketPriority.Name)
+								</dd>
+
+								<dt>
+									@Html.DisplayName("Status")
+								</dt>
+
+								<dd>
+									@Html.DisplayFor(modelItem => item.TicketStatus.Name)
+								</dd>
+
+								<dt>
+									@Html.DisplayName("Type")
+								</dt>
+
+								<dd>
+									@Html.DisplayFor(modelItem => item.TicketType.Name)
+								</dd>
+
+								<dt>
+									@Html.DisplayName("Created")
+								</dt>
+
+								<dd>
+									@Html.DisplayFor(modelItem => item.Created)
+								</dd>
+
+								<dt>
+									@Html.DisplayName("Updated")
+								</dt>
+
+								<dd>
+									@Html.DisplayFor(modelItem => item.Updated)
+								</dd>
+							</dl>
+						</div>
+					}
+				</div>
 			</div>
 		</div>
 	</div>

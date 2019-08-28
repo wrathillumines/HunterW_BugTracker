@@ -2359,8 +2359,8 @@ body.main-scrollable .main {
   border-top: 4px solid #1c8ed7;
 }
 .dropdown-menu {
-  background-color: #382835;
-  border-color: #272c30;
+    background-color: #1b1f21;
+    border-color: #272c30;
 }
 .dropdown-menu li > a {
   color: #5e6870;
@@ -2962,7 +2962,7 @@ select option {
   z-index: 1000 !important;
 }
 .datepicker.datepicker-dropdown:after {
-  border-bottom-color: #382835;
+  border-bottom-color: #1b1f21;
 }
 .datepicker.datepicker-dropdown:before {
   border-bottom-color: #272c30;
@@ -2974,7 +2974,7 @@ select option {
   border-left: 0;
 }
 .datepicker.datepicker-dropdown.datepicker-orient-top:before {
-  border-top-color: #382835;
+  border-top-color: #1b1f21;
 }
 .date .input-group-addon {
   cursor: pointer;
@@ -3012,14 +3012,14 @@ select option {
   padding: 2px 3px;
   width: 30px;
 }
-.bootstrap-timepicker-widget.dropdown-menu:after {
-  border-bottom-color: #382835;
-}
+    .bootstrap-timepicker-widget.dropdown-menu:after {
+        border-bottom-color: #1b1f21;
+    }
 .bootstrap-timepicker-widget.dropdown-menu:before {
   border-bottom-color: #272c30;
 }
 .bootstrap-timepicker-widget.timepicker-orient-bottom:after {
-  border-top-color: #382835;
+  border-top-color: #1b1f21;
 }
 .bootstrap-timepicker-widget.timepicker-orient-bottom:before {
   border-top-color: #272c30;

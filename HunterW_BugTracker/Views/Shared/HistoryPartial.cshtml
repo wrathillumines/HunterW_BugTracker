@@ -1,0 +1,54 @@
+﻿@model IEnumerable<HunterW_BugTracker.Models.TicketHistory>
+
+<!-- Data Tables Stuff -->
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+<table id="userindextable" class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayName("Updated")
+			</th>
+			<th>
+				@Html.DisplayName("User")
+			</th>
+			<th>
+				@Html.DisplayName("Changed Property")
+			</th>
+			<th>
+				@Html.DisplayName("Old Value")
+			</th>
+			<th>
+				@Html.DisplayName("New Value")
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Updated)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.User.DisplayName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PropertyName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.OldValue)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.NewValue)
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<script>
+	$("#userindextable").DataTable();
+</script>

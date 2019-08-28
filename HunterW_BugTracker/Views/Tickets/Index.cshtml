@@ -1,4 +1,9 @@
-﻿@model IEnumerable<HunterW_BugTracker.Models.Ticket>
+﻿@using HunterW_BugTracker.Helpers
+@model IEnumerable<HunterW_BugTracker.Models.Ticket>
+
+@{ 
+	var linkHelper = new LinkHelper();
+}
 
 <!-- Data Tables Stuff -->
 <link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
@@ -17,7 +22,7 @@
 							</div>
 							<div class="panel-body">
 								<p>
-									Below is a list of all tickets. You may sort them alphabetically by name or description, and you may manage them using the links on the right side of the screen. Click on a ticket title to view the details of that ticket.
+									Below is a list of all tickets. You may sort them alphabetically by name or description, and you may manage them using the links on the right side of the screen. Click on a ticket title to view the details and comments for that ticket.
 								</p>
 							</div>
 						</div>
@@ -39,15 +44,6 @@
 							</th>
 							<th>
 								@Html.DisplayName("Created By")
-							</th>
-							<th>
-								@Html.DisplayName("Priority")
-							</th>
-							<th>
-								@Html.DisplayName("Status")
-							</th>
-							<th>
-								@Html.DisplayName("Type")
 							</th>
 							<th>
 								@Html.DisplayNameFor(model => model.Created)
@@ -74,23 +70,19 @@
 									@Html.DisplayFor(modelItem => item.OwnerUser.DisplayName)
 								</td>
 								<td>
-									@Html.DisplayFor(modelItem => item.TicketPriority.Name)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.TicketStatus.Name)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.TicketType.Name)
-								</td>
-								<td>
 									@Html.DisplayFor(modelItem => item.Created)
 								</td>
 								<td>
 									@Html.DisplayFor(modelItem => item.Updated)
 								</td>
 								<td>
-									@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-									@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+									@Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
+									@if (linkHelper.UserCanEditTicket(item))
+									{
+										@Html.ActionLink(" | History", "Index", "TicketHistories", new { id = item.Id }, null)
+										@Html.ActionLink(" | Edit", "Edit", new { id = item.Id })
+										@Html.ActionLink(" | Delete", "Delete", new { id = item.Id })
+									}
 								</td>
 							</tr>
 						}

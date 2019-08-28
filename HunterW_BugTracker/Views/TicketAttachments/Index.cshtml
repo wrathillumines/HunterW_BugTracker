@@ -1,63 +1,88 @@
 ﻿@model IEnumerable<HunterW_BugTracker.Models.TicketAttachment>
 
-@{
-    ViewBag.Title = "Index";
-}
+<!-- Data Tables Stuff -->
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
 
-<h2>Index</h2>
+<div class="main">
+	<div class="main__scroll scrollbar-macosx">
+		<div class="main__cont">
+			<div class="container-fluid half-padding">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h3 class="panel-title">Tickets</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Below is a list of all tickets. You may sort them alphabetically by name or description, and you may manage them using the links on the right side of the screen. Click on a ticket title to view the details and comments for that ticket.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table id="userindextable" class="table">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.Ticket.OwnerUserId)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.UserId)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Title)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Description)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Created)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.AttachmentUrl)
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.Ticket.OwnerUserId)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.UserId)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Title)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Description)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Created)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.AttachmentUrl)
+								</td>
+								<td>
+									@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+									@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+									@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Ticket.OwnerUserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AttachmentUrl)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ticket.OwnerUserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttachmentUrl)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+<script>
+	$("#userindextable").DataTable();
+</script>

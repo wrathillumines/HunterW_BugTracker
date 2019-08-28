@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterW_BugTracker.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -33,5 +34,6 @@ namespace HunterW_BugTracker.Utilities
         {
             throw new NotImplementedException();
         }
+
     }
 }

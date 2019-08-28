@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HunterW_BugTracker.Models.Project>
+﻿@using HunterW_BugTracker.Helpers
+
+@model IEnumerable<HunterW_BugTracker.Models.Project>
 
 <!-- Data Tables Stuff -->
 <link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
@@ -23,12 +25,9 @@
 				</div>
 			</div>
 			<div class="container-fluid half-padding">
-				@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-				{
-					<p>
-						@Html.ActionLink("Create New", "Create")
-					</p>
-				}
+				<p>
+					@Html.ActionLink("Create New", "Create")
+				</p>
 				<table id="userindextable" class="table">
 					<thead>
 						<tr>
@@ -41,7 +40,6 @@
 							<th>
 								@Html.DisplayNameFor(model => model.Created)
 							</th>
-							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -58,12 +56,9 @@
 									@Html.DisplayFor(modelItem => item.Created)
 								</td>
 								<td>
-									@Html.ActionLink("Details", "Details", new { id = item.Id })
-									@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-									{
-										@Html.ActionLink("| Edit |", "Edit", new { id = item.Id })
-										@Html.ActionLink("Delete", "Delete", new { id = item.Id })
-									}
+									@Html.ActionLink("Details and Tickets", "Details", new { id = item.Id })
+									@Html.ActionLink("| Edit | ", "Edit", new { id = item.Id })
+									@Html.ActionLink("Delete", "Delete", new { id = item.Id })
 								</td>
 							</tr>
 						}

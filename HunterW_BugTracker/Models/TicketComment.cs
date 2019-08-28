@@ -8,6 +8,7 @@ namespace HunterW_BugTracker.Models
         public int TicketId { get; set; }
         public string UserId { get; set; }
         public string CommentBody { get; set; }
+        public string AuthorId { get; set; }
         public DateTimeOffset Created { get; set; }
 
         //virtual

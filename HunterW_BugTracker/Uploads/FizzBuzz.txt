@@ -1,0 +1,6 @@
+Write a program that accepts two numbers between 1 and 100 from the user. The program
+then iterates through all numbers from 1 to 100, printing numbers in ascending order to the
+screen. For each number that is a multiple of the first number input by the user, print "Fizz"
+instead of the number. For each number that is a multiple of the second number input by
+the user, print "Buzz" instead of the number. For numbers that are multiples of both
+numbers, print "FizzBuzz" instead of the number.

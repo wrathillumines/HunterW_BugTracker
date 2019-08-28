@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TicketAttachmentsController.cs" />
@@ -184,7 +185,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CommonHelper.cs" />
+    <Compile Include="Helpers\DecisionHelper.cs" />
+    <Compile Include="Helpers\HistoryHelper.cs" />
+    <Compile Include="Helpers\LinkHelper.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\ProjectsHelper.cs" />
+    <Compile Include="Helpers\TicketsHelper.cs" />
+    <Compile Include="Helpers\UploadHelper.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -204,9 +212,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utilities\ImageUploadValidator.cs" />
+    <Compile Include="Utilities\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\awesome-bootstrap-checkbox.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap-switch.css" />
     <Content Include="Content\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -239,7 +251,20 @@
     <Content Include="Content\right.light.min.css" />
     <Content Include="Content\right.lilac.css" />
     <Content Include="Content\right.lilac.min.css" />
+    <Content Include="Content\selectize.bootstrap3.css" />
+    <Content Include="Content\selectize.default.css" />
+    <Content Include="Content\TicketDashboard.css" />
     <Content Include="favicon.ico" />
+    <Content Include="FileIcons\doc.png" />
+    <Content Include="FileIcons\docx.png" />
+    <Content Include="FileIcons\file.png" />
+    <Content Include="FileIcons\jpg.png" />
+    <Content Include="FileIcons\pdf.png" />
+    <Content Include="FileIcons\png.png" />
+    <Content Include="FileIcons\rtf.png" />
+    <Content Include="FileIcons\txt.png" />
+    <Content Include="FileIcons\xls.png" />
+    <Content Include="FileIcons\xlsx.png" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -253,6 +278,8 @@
     <Content Include="Images\nophoto.png" />
     <Content Include="Images\paint.svg" />
     <Content Include="Images\sprite-skin-flat.png" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap-switch.js" />
     <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap-tabdrop.min.js" />
@@ -264,6 +291,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Content\bootstrap-datepicker.min.css.map" />
+    <Content Include="Content\bootstrap-select.css.map" />
     <None Include="private.config" />
     <None Include="Properties\PublishProfiles\hwerrortracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -275,6 +304,7 @@
     <Content Include="Scripts\dataTables.foundation.min.js" />
     <Content Include="Scripts\dataTables.jqueryui.js" />
     <Content Include="Scripts\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\dataTables.select.js" />
     <Content Include="Scripts\dataTables.semanticui.js" />
     <Content Include="Scripts\dataTables.semanticui.min.js" />
     <Content Include="Scripts\demo.js" />
@@ -288,7 +318,6 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
-    <Content Include="Scripts\jquery.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
@@ -303,7 +332,9 @@
     <Content Include="Scripts\mails.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\selectize.min.js" />
     <Content Include="Views\Account\UploadAvatar.cshtml" />
+    <Content Include="Views\Account\EmailConfirmationSent.cshtml" />
     <None Include="Views\Admin\ManageUserRole.cshtml" />
     <None Include="Views\Admin\ManageUserProjects.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
@@ -395,10 +426,19 @@
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Admin\ManageUserTickets.cshtml" />
     <Content Include="Views\Projects\SubmitterProjectIndex.cshtml" />
+    <Content Include="Views\Tickets\ProjectTickets.cshtml" />
+    <Content Include="Views\Tickets\Dashboard.cshtml" />
+    <Content Include="Views\Projects\UserIndex.cshtml" />
+    <Content Include="Views\Profile\EditProfile.cshtml" />
+    <Content Include="Views\Manage\PasswordChangeSuccess.cshtml" />
+    <Content Include="Views\Shared\HistoryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Avatars\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Views\TicketsHelper\" />
+    <Folder Include="Views\UploadHelper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

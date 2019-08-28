@@ -7,18 +7,49 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HunterW_BugTracker.Models;
+using Microsoft.AspNet.Identity;
+using HunterW_BugTracker.Helpers;
 
 namespace HunterW_BugTracker.Controllers
 {
     public class TicketNotificationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private NotificationHelper nHelp = new NotificationHelper();
 
-        // GET: TicketNotifications
+        //// GET: TicketNotifications
+        //public ActionResult Index()
+        //{
+        //    var ticketNotifications = db.TicketNotifications.Include(t => t.Recipient).Include(t => t.Sender).Include(t => t.Ticket);
+        //    return View(ticketNotifications.ToList().OrderByDescending(t => t.Created));
+        //}
+
+        public ActionResult DeleteAll()
+        {
+            foreach (var notification in db.TicketNotifications)
+            {
+                db.TicketNotifications.Remove(notification);
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Index()
         {
-            var ticketNotifications = db.TicketNotifications.Include(t => t.Recipient).Include(t => t.Sender).Include(t => t.Ticket);
-            return View(ticketNotifications.ToList());
+            var userId = User.Identity.GetUserId();
+            return View("Index", db.TicketNotifications.Where(t => t.RecipientId == userId).ToList().OrderByDescending(t => t.Created));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MarkAsRead(int id)
+        {
+            var notification = db.TicketNotifications.Find(id);
+            notification.HasBeenRead = true;
+            db.SaveChanges();
+
+            return RedirectToAction("Dashboard", "Home");
         }
 
         // GET: TicketNotifications/Details/5

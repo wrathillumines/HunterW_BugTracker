@@ -1,0 +1,359 @@
+﻿@using HunterW_BugTracker.Helpers
+
+@model HunterW_BugTracker.Models.Ticket
+
+<style>
+	.attachmentbutton {
+		width: 0.1px;
+		height: 0.1px;
+		opacity: 0;
+		overflow: hidden;
+		position: absolute;
+		z-index: -1;
+	}
+</style>
+
+<div class="main">
+	<div class="main__scroll scrollbar-macosx">
+		<div class="main__cont">
+			<div class="container-fluid half-padding">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h3 class="panel-title">Ticket Dashboard</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Provided below are details about this ticket. If authorized, you may upload an attachment in this window.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
+
+							<!-- title -->
+
+							<div class="col-md-12">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Title</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.Title)
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="row">
+
+							<!-- description -->
+
+							<div class="col-md-12">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Description</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.Description)
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="row">
+
+							<!-- project -->
+
+							<div class="col-md-6">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Project</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.Project.Name)
+									</div>
+								</section>
+							</div>
+
+							<!-- created by -->
+
+							<div class="col-md-6">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Created By</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.OwnerUser.DisplayName)
+									</div>
+								</section>
+							</div>
+						</div>
+						
+						<div class="row">
+
+							<!-- created -->
+
+							<div class="col-md-6">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Created On</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.Created)
+									</div>
+								</section>
+							</div>
+
+							<!-- updated -->
+
+							<div class="col-md-6">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Updated On</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.Updated)
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="row">
+
+							<!-- ticket type -->
+
+							<div class="col-md-6">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Type</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.TicketType.Name)
+									</div>
+								</section>
+							</div>
+
+							<!-- priority -->
+
+							<div class="col-md-6">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Priority</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.TicketPriority.Name)
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="row">
+
+							<!-- ticket status -->
+
+							<div class="col-md-6">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Status</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.TicketStatus.Name)
+									</div>
+								</section>
+							</div>
+
+							<!-- assigned to -->
+
+							<div class="col-md-6">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Assigned To</h3>
+									</header>
+									<div class="panel-body">
+										@Html.DisplayFor(model => model.AssignedToUser.DisplayName)
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<!-- comment input box -->
+
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								@using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+								{
+									@Html.AntiForgeryToken()
+									@Html.Hidden("TicketId", Model.Id)
+									<div class="row">
+										<div class="col-md-9">
+											@Html.TextBox("CommentBody", "Leave A Comment", new { @class = "form-control" })
+										</div>
+										<div class="col-md-3 text-center">
+											<button type="submit" class="btn btn-primary text-center">Save Comment</button>
+										</div>
+									</div>
+
+								}
+							</div>
+						</div>
+
+						<!-- comment list -->
+
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								@foreach (var comment in Model.TicketComments.OrderByDescending(c => c.Created))
+								{
+									<hr />
+									<div class="row">
+										<h4>Comment from @comment.Author.DisplayName on @comment.Created.ToString("MMMM d, yy") at @comment.Created.ToString("h:mm tt")</h4>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											@comment.CommentBody
+										</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-md-12">
+											@if (User.Identity.IsAuthenticated)
+											{
+												using (Html.BeginForm("Edit", "TicketComments", FormMethod.Get))
+												{
+													@Html.Hidden("Id", comment.Id)
+													<button type="submit" class="btn btn-primary">Edit</button>
+												}
+												<br />
+												using (Html.BeginForm("Delete", "TicketComments", FormMethod.Get))
+												{
+													@Html.Hidden("Id", comment.Id)
+													<button type="submit" class="btn btn-primary">Delete</button>
+												}
+											}
+										</div>
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-12">
+
+								<!-- history -->
+
+								@Html.Partial("HistoryPartial", Model.TicketHistories, new ViewDataDictionary())
+							</div>
+						</div>
+						<div class="row">
+
+							<!-- attachments -->
+
+							<div class="col-md-12">
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">Attachments</h3>
+									</header>
+									<div class="panel-body">
+										<br />
+										<!-- upload attachment -->
+
+										@using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+										{
+											@Html.Hidden("TicketId", Model.Id)
+											@Html.AntiForgeryToken()
+
+											<div class="row">
+												<div class="col-md-4">
+													@Html.TextBox("AttachmentTitle", null, new { @class="form-control cell-fill-input", placeholder="Title" })
+												</div>
+											</div>
+											<br />
+											<div class="row">
+												<div class="col-md-12">
+													@Html.TextArea("AttachmentDescription", new { @class="form-control cell-fill-textarea", rows=3, cols=150, placeholder="Description" })
+												</div>
+											</div>
+											<br />
+											<div class="row">
+												<div class="col-md-12">
+													<input type="file" name="attachment" id="attachment" class="attachmentbutton" />
+													<label for="attachment" class="btn btn-default">Add File</label>
+												</div>
+											</div>
+											<br />
+											<div class="row">
+												<div class="col-md-12">
+													<button class="btn btn-default" type="submit">Upload</button>
+												</div>
+											</div>
+											<br />
+										}
+
+										<!-- show attachment -->
+
+										<div class="row">
+											<div class="col-md-4">
+												File Type and Name
+											</div>
+											<div class="col-md-4">
+												Date, Title, and Description
+											</div>
+											<div class="col-md-4">
+												Added By User
+											</div>
+										</div>
+										<hr />
+
+										@foreach (var attachment in Model.TicketAttachments)
+										{
+											<div class="row">
+												<div class="col-md-4">
+													<div class="row">
+														<div class="col-md-12">
+															<img src="@UploadHelper.GetIconPath(attachment.AttachmentUrl)" />
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															<a target="_blank" href="@attachment.AttachmentUrl">@Path.GetFileNameWithoutExtension(attachment.AttachmentUrl)</a>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="row">
+														<div class="col-md-6">
+															@attachment.Created.ToString("MMMM d, yyyy")
+														</div>
+														<div class="col-md-6">
+															@attachment.User.DisplayName
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															@attachment.Title
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															@attachment.Description
+														</div>
+													</div>
+												</div>
+											</div>
+										}
+									</div>
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

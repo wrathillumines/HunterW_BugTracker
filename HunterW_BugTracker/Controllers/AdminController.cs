@@ -3,6 +3,7 @@ using HunterW_BugTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,6 +14,7 @@ namespace HunterW_BugTracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper roleHelper = new UserRolesHelper();
         private ProjectsHelper projHelper = new ProjectsHelper();
+        private TicketsHelper tickHelper = new TicketsHelper();
 
         //GET: Admin
         [Authorize(Roles = "Admin, Project Manager")]
@@ -90,5 +92,55 @@ namespace HunterW_BugTracker.Controllers
             }
             return RedirectToAction("AdminUserIndex");
         }
+
+        //GET: Manage User Tickets
+        //[Authorize(Roles = "Admin, Project Manager")]
+        //public ActionResult ManageUserTickets(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+
+        //    if (ticket == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+        //    if (DecisionHelper.TicketEditable(ticket))
+        //    {
+        //        ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);
+        //    }
+
+        ////GET: Manage User Tickets
+        //[Authorize(Roles = "Admin, Project Manager")]
+        //public ActionResult ManageUserTickets(string userId)
+        //{
+        //    var tickets = db.Tickets.ToList();
+        //    var currentTickets = tickHelper.ListUserTickets(userId);
+        //    ViewBag.UserId = userId;
+        //    ViewBag.TicketNames = new MultiSelectList(db.Tickets.ToList(), "Id", "Title", currentTickets);
+
+        //    return View(currentTickets);
+        //}
+
+        ////POST: Manage User Tickets
+        //[HttpPost]
+        //[Authorize(Roles = "Admin, Project Manager")]
+        //public ActionResult ManageUserTickets(string userId, List<int> ticketNames)
+        //{
+        //    foreach (var ticket in tickHelper.ListUserTickets(userId).ToList())
+        //    {
+        //        tickHelper.RemoveTicketFromUser(userId, ticket.Id);
+        //    }
+        //    if (ticketNames != null)
+        //    {
+        //        foreach (var ticketId in ticketNames)
+        //        {
+        //            tickHelper.AddTicketToUser(userId, ticketId);
+        //        }
+        //    }
+        //    return RedirectToAction("AdminUserIndex");
+        //}
     }
 }

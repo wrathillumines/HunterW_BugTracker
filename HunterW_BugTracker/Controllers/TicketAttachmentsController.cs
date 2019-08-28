@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using HunterW_BugTracker.Helpers;
 using HunterW_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace HunterW_BugTracker.Controllers
 {
@@ -37,6 +40,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: TicketAttachments/Create
+        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
         public ActionResult Create()
         {
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId");
@@ -46,12 +50,25 @@ namespace HunterW_BugTracker.Controllers
         // POST: TicketAttachments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,UserId,Title,Description,Created,AttachmentUrl")] TicketAttachment ticketAttachment)
+        public ActionResult Create([Bind(Include="TicketId")] TicketAttachment ticketAttachment, string attachmentTitle, string attachmentDescription, HttpPostedFileBase attachment)
         {
             if (ModelState.IsValid)
             {
+                ticketAttachment.Title = attachmentTitle;
+                ticketAttachment.Description = attachmentDescription;
+                ticketAttachment.Created = DateTime.Now;
+                ticketAttachment.UserId = User.Identity.GetUserId();
+
+                if(UploadHelper.IsValidAttachment(attachment))
+                {
+                    var fileName = Path.GetFileName(attachment.FileName);
+                    attachment.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                    ticketAttachment.AttachmentUrl = "/Uploads/" + fileName;
+                }
+
                 db.TicketAttachments.Add(ticketAttachment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -62,6 +79,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: TicketAttachments/Edit/5
+        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,6 +98,7 @@ namespace HunterW_BugTracker.Controllers
         // POST: TicketAttachments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,TicketId,UserId,Title,Description,Created,AttachmentUrl")] TicketAttachment ticketAttachment)
@@ -95,6 +114,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: TicketAttachments/Delete/5
+        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +130,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // POST: TicketAttachments/Delete/5
+        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

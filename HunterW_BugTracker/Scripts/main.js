@@ -52,7 +52,7 @@ $(document).ready(function() {
 				height: '30px',
 				barSpacing: 2,
 				barColor: '#1e59d9',
-				negBarColor: '#1c8ed7'
+				negBarColor: '#ed4949'
 			}
 		);
 	});
@@ -64,7 +64,7 @@ $(document).ready(function() {
 				width: '145px',
 				height: '40px',
 				type: 'line',
-				lineColor: '#1c8ed7',
+				lineColor: '#ed4949',
 				lineWidth: 2,
 				fillColor: 'rgba(237, 73, 73, 0.6)',
 				spotColor: '#FF5722',
@@ -85,7 +85,7 @@ $(document).ready(function() {
 				barSpacing: 1,
 				barWidth: 2,
 				barColor: '#FED42A',
-				negBarColor: '#1c8ed7'
+				negBarColor: '#ed4949'
 			}
 		);
 	});
@@ -99,7 +99,7 @@ $(document).ready(function() {
 				barSpacing: 2,
 				barWidth: 3,
 				barColor: '#20c05c',
-				negBarColor: '#1c8ed7'
+				negBarColor: '#ed4949'
 			}
 		);
 	});

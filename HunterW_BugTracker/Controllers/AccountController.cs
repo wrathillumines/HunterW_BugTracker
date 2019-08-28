@@ -10,6 +10,7 @@ using System.Web.Configuration;
 using System.Net.Mail;
 using System.IO;
 using HunterW_BugTracker.Utilities;
+using HunterW_BugTracker.Helpers;
 
 namespace HunterW_BugTracker.Controllers
 {
@@ -155,11 +156,27 @@ namespace HunterW_BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, DisplayName = model.DisplayName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    DisplayName = model.DisplayName,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
+                };
+
+                if (UploadHelper.IsWebFriendlyImage(model.Avatar))
+                {
+                    var fileName = Path.GetFileName(model.Avatar.FileName);
+                    model.Avatar.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), fileName));
+                    user.AvatarUrl = "/Avatars/" + fileName;
+                }
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
@@ -167,14 +184,14 @@ namespace HunterW_BugTracker.Controllers
                     MailMessage mailMessage = new MailMessage(emailFrom, model.Email)
                     {
                         Subject = "Confirm your account",
-                        Body = "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>",
+                        Body = "<p><span style=\"font-family: arial;\">Thank you for registering.</span></p><p><span style=\"font-family: arial;\">Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>.</span></p>",
                         IsBodyHtml = true
                     };
 
-                    //var service = new PersonalEmail();
-                    //service.SendAsync
+                    var service = new EmailConfirm();
+                    await service.SendAsync(mailMessage);
 
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("EmailConfirmationSent", "Account");
                 }
                 AddErrors(result);
             }
@@ -202,8 +219,8 @@ namespace HunterW_BugTracker.Controllers
             if (ImageUploadValidator.IsWebFriendlyImage(image))
             {
                 var fileName = Path.GetFileName(image.FileName);
-                image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
-                avatar.AvatarUrl = "/Uploads/" + fileName;
+                image.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), fileName));
+                avatar.AvatarUrl = "/Avatars/" + fileName;
             }
             db.SaveChanges();
             return RedirectToAction("Dashboard", "Home");
@@ -220,6 +237,14 @@ namespace HunterW_BugTracker.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+        //
+        // GET: /Account/EmailConfirmationSent
+        [AllowAnonymous]
+        public ActionResult EmailConfirmationSent()
+        {
+            return View();
         }
 
         //
@@ -241,15 +266,20 @@ namespace HunterW_BugTracker.Controllers
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
 
-                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 var emailFrom = WebConfigurationManager.AppSettings["emailfrom"];
                 MailMessage mailMessage = new MailMessage(emailFrom, model.Email)
                 {
                     Subject = "Reset Password",
-                    Body = "Reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>",
+                    Body = "<p><span style=\"font-family: arial;\">Reset your password by clicking <a href=\"" + callbackUrl + "\">here</a></span></p>.",
                     IsBodyHtml = true
                 };
+
+                var service = new EmailConfirm();
+                await service.SendAsync(mailMessage);
+
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
