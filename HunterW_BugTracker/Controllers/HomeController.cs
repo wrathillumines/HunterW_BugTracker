@@ -14,9 +14,9 @@ namespace HunterW_BugTracker.Controllers
             return View();
         }
 
-        //public ActionResult Register()
-        //{
-        //    return View();
-        //}
+        public ActionResult DemoUser()
+        {
+            return View();
+        }
     }
 }

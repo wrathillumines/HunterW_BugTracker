@@ -1,0 +1,191 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style>
+	.demostyle {
+		display: inline-block;
+		min-width: 700px;
+		width: 80%;
+		vertical-align: top;
+		font-size: 14px;
+		white-space: normal;
+		border-radius: 4px;
+		text-align: left;
+		color: #5e6870;
+		position: relative;
+	}
+
+	.demopanel {
+		height: 535px;
+	}
+
+	.demobutton {
+		width: 70%;
+	}
+</style>
+
+<html lang="en">
+
+<head>
+	<title>HW Error Tracking</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Right - Bootstrap Admin Template</title>
+	<link rel="icon" type="image/png" href="~/Images/favicon.png">
+	@*<link rel="apple-touch-icon-precomposed" href="img/apple-touch-favicon.png">*@
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic" rel="stylesheet" type="text/css">
+	<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+	<link href="~/Content/awesome-bootstrap-checkbox.css" rel="stylesheet" />
+	<link href="~/Content/right.lilac.css" rel="stylesheet" />
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+
+<body class="framed">
+	<div class="wrapper">
+		<div class="login">
+			<div class="demostyle">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<h1>Demo Users</h1>
+						<h6>Try it before you buy it.</h6>
+					</div>
+				</div>
+				<br />
+				<div class="login__logo"></div>
+				<br />
+				<div class="row">
+
+					<!--ADMIN-->
+
+					<div class="col-md-3">
+						<section class="panel demopanel">
+							<header class="panel-heading">
+								<div class="panel heading-icon mt-sm">
+									<img class="img-responsive img-rounded" src="~/Images/TheAdmin.png" />
+								</div>
+							</header>
+							<div class="panel-body">
+								<h3 class="text-semibold mt-none text-center">Admin</h3>
+								<p class="text-center">Logging in as the Admin gives you full access to all features of the Error Tracker.</p>
+							</div>
+						</section>
+					</div>
+
+					<!--PROJECT MANAGER-->
+
+					<div class="col-md-3">
+						<section class="panel demopanel">
+							<header class="panel-heading">
+								<div class="panel heading-icon mt-sm">
+									<img class="img-responsive img-rounded" src="~/Images/TheProjectManager.png" />
+								</div>
+							</header>
+							<div class="panel-body">
+								<h3 class="text-semibold mt-none text-center">Project Manager</h3>
+								<p class="text-center">Logging in as the Project Manager gives you access to the management features of the Error Tracker. These include creating, editing, and assigning projects, as well as some ticket permissions.</p>
+							</div>
+						</section>
+					</div>
+
+					<!--DEVELOPER-->
+
+					<div class="col-md-3">
+						<section class="panel demopanel">
+							<header class="panel-heading">
+								<div class="panel heading-icon mt-sm">
+									<img class="img-responsive img-rounded" src="~/Images/TheDeveloper.png" />
+								</div>
+							</header>
+							<div class="panel-body">
+								<h3 class="text-semibold mt-none text-center">Developer</h3>
+								<p class="text-center">Logging in as the Developer gives you access to the development features of the Error Tracker. This allows the user to edit tickets that they have been assigned to.</p>
+							</div>
+						</section>
+					</div>
+
+					<!--SUBMITTER-->
+
+					<div class="col-md-3">
+						<section class="panel demopanel">
+							<header class="panel-heading">
+								<div class="panel heading-icon mt-sm">
+									<img class="img-responsive img-rounded" src="~/Images/TheSubmitter.png" />
+								</div>
+							</header>
+							<div class="panel-body">
+								<h3 class="text-semibold mt-none text-center">Submitter</h3>
+								<p class="text-center">Logging in as the Submitter gives you access to the submission features of the Error Tracker. This allows the user to create and edit tickets for projects to which they have been assigned.</p>
+							</div>
+						</section>
+					</div>
+				</div>
+
+				<!--BUTTONS-->
+
+				<div class="row">
+
+					<!--ADMIN BUTTON-->
+
+					@using (Html.BeginForm("DemoLoginAsync", "Account"))
+					{
+						@Html.AntiForgeryToken()
+						@Html.Hidden("DemoEmail", "DemoAdminEmail")
+						<div class="col-md-3 text-center">
+							<button type="submit" class="btn btn-default demobutton">Try Admin</button>
+						</div>
+					}
+
+					<!--PROJECT MANAGER BUTTON-->
+
+					@using (Html.BeginForm("DemoLoginAsync", "Account"))
+					{
+						@Html.AntiForgeryToken()
+						@Html.Hidden("DemoEmail", "DemoProjectManagerEmail")
+						<div class="col-md-3 text-center">
+							<button type="submit" class="btn btn-default demobutton">Try Project Manager</button>
+						</div>
+					}
+
+					<!--DEVELOPER BUTTON-->
+
+					@using (Html.BeginForm("DemoLoginAsync", "Account"))
+					{
+						@Html.AntiForgeryToken()
+						@Html.Hidden("DemoEmail", "DemoDeveloperEmail")
+						<div class="col-md-3 text-center">
+							<button type="submit" class="btn btn-default demobutton">Try Developer</button>
+						</div>
+					}
+
+					<!--SUBMITTER BUTTON-->
+
+					@using (Html.BeginForm("DemoLoginAsync", "Account"))
+					{
+						@Html.AntiForgeryToken()
+						@Html.Hidden("DemoEmail", "DemoSubmitterEmail")
+						<div class="col-md-3 text-center">
+							<button type="submit" class="btn btn-default demobutton">Try Submitter</button>
+						</div>
+					}
+				</div>
+				<br />
+				<br />
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<a href="@Url.Action("Login", "Account")">Return To Login Home</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="~/Scripts/jquery.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

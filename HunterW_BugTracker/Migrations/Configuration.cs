@@ -45,7 +45,7 @@ namespace HunterW_BugTracker.Migrations
 
             #endregion
 
-            //Create users that occupy roles of Admin and/or Moderator
+            //Create users that occupy roles
             var userManager = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
 
@@ -97,6 +97,55 @@ namespace HunterW_BugTracker.Migrations
                 }, "2Bornot2B?");
             }
 
+            //Demo Users
+            if (!context.Users.Any(u => u.Email == "theadmindemouser@mailinator.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "theadmindemouser@mailinator.com",
+                    Email = "theadmindemouser@mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Admin",
+                    DisplayName = "demoadmin"
+                }, "D3m07h15!");
+            }
+
+            if (!context.Users.Any(u => u.Email == "theprojectmanagerdemouser@mailinator.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "theprojectmanagerdemouser@mailinator.com",
+                    Email = "theprojectmanagerdemouser@mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Project Manager",
+                    DisplayName = "demopm"
+                }, "D3m07h15!");
+            }
+
+            if (!context.Users.Any(u => u.Email == "thedeveloperdemouser@mailinator.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "thedeveloperdemouser@mailinator.com",
+                    Email = "thedeveloperdemouser@mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Developer",
+                    DisplayName = "demodeveloper"
+                }, "D3m07h15!");
+            }
+
+            if (!context.Users.Any(u => u.Email == "thesubmitterdemouser@mailinator.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "thesubmitterdemouser@mailinator.com",
+                    Email = "thesubmitterdemouser@mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Submitter",
+                    DisplayName = "demosubmitter"
+                }, "D3m07h15!");
+            }
+
             var userId = userManager.FindByEmail("hwphotog@gmail.com").Id;
             userManager.AddToRole(userId, "Admin");
 
@@ -109,6 +158,17 @@ namespace HunterW_BugTracker.Migrations
             userId = userManager.FindByEmail("dhwsub@mailinator.com").Id;
             userManager.AddToRole(userId, "Submitter");
 
+            userId = userManager.FindByEmail("theadmindemouser@mailinator.com").Id;
+            userManager.AddToRole(userId, "Admin");
+
+            userId = userManager.FindByEmail("theprojectmanagerdemouser@mailinator.com").Id;
+            userManager.AddToRole(userId, "Project Manager");
+
+            userId = userManager.FindByEmail("thedeveloperdemouser@mailinator.com").Id;
+            userManager.AddToRole(userId, "Developer");
+
+            userId = userManager.FindByEmail("thesubmitterdemouser@mailinator.com").Id;
+            userManager.AddToRole(userId, "Submitter");
         }
     }
 }

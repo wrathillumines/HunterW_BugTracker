@@ -182,15 +182,17 @@
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\TicketStatusController.cs" />
     <Compile Include="Controllers\TicketTypesController.cs" />
+    <Compile Include="Enumerations\SystemRole.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CommonHelper.cs" />
-    <Compile Include="Helpers\DecisionHelper.cs" />
+    <Compile Include="Helpers\AccessHelper.cs" />
     <Compile Include="Helpers\HistoryHelper.cs" />
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\ProjectsHelper.cs" />
+    <Compile Include="Helpers\TicketDecisionHelper.cs" />
     <Compile Include="Helpers\TicketsHelper.cs" />
     <Compile Include="Helpers\UploadHelper.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />
@@ -278,6 +280,10 @@
     <Content Include="Images\nophoto.png" />
     <Content Include="Images\paint.svg" />
     <Content Include="Images\sprite-skin-flat.png" />
+    <Content Include="Images\TheAdmin.png" />
+    <Content Include="Images\TheDeveloper.png" />
+    <Content Include="Images\TheProjectManager.png" />
+    <Content Include="Images\TheSubmitter.png" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap-switch.js" />
@@ -432,6 +438,7 @@
     <Content Include="Views\Profile\EditProfile.cshtml" />
     <Content Include="Views\Manage\PasswordChangeSuccess.cshtml" />
     <Content Include="Views\Shared\HistoryPartial.cshtml" />
+    <Content Include="Views\Home\DemoUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,7 +1,7 @@
-﻿using HunterW_BugTracker.Models;
+﻿using HunterW_BugTracker.Enumerations;
+using HunterW_BugTracker.Models;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -13,13 +13,18 @@ namespace HunterW_BugTracker.Helpers
         protected UserRolesHelper RoleHelper = new UserRolesHelper();
         protected ProjectsHelper ProjectHelper = new ProjectsHelper();
         protected ApplicationUser CurrentUser = new ApplicationUser();
-        protected String CurrentRole = "";
+        protected SystemRole CurrentRole = SystemRole.None;
 
         protected CommonHelper()
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
-            this.CurrentUser = Db.Users.Find(userId);
-            this.CurrentRole = RoleHelper.ListUserRoles(this.CurrentUser.Id).FirstOrDefault();
+            if (userId != null)
+                CurrentUser = Db.Users.Find(userId);
+
+            var stringRole = RoleHelper.ListUserRoles(userId).FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(stringRole))
+                CurrentRole = (SystemRole)Enum.Parse(typeof(SystemRole), stringRole);
         }
     }
 }

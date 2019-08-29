@@ -1,4 +1,5 @@
-﻿using HunterW_BugTracker.Models;
+﻿using HunterW_BugTracker.Enumerations;
+using HunterW_BugTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,13 @@ namespace HunterW_BugTracker.Helpers
         {
             switch(this.CurrentRole)
             {
-                case "Admin":
+                case SystemRole.Admin:
                     return true;
-                case "Project Manager":
+                case SystemRole.ProjectManager:
                     return CurrentUser.Projects.SelectMany(t => t.Tickets).Select(t => t.Id).Contains(ticket.Id);
-                case "Developer":
+                case SystemRole.Developer:
                     return ticket.AssignedToUserId == this.CurrentUser.Id;
-                case "Submitter":
+                case SystemRole.Submitter:
                     return ticket.OwnerUserId == CurrentUser.Id;
                 default:
                     return false;
