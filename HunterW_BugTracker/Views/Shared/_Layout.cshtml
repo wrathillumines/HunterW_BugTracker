@@ -1,4 +1,5 @@
-﻿@using HunterW_BugTracker.Helpers
+﻿@using HunterW_BugTracker.Models
+@using HunterW_BugTracker.Helpers
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,8 @@
 	<link href="~/Content/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
 	<link href="~/Content/bootstrap-switch.min.css" rel="stylesheet" />
 	<link href="~/Content/right.lilac.css" rel="stylesheet" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" />
+
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -24,9 +27,9 @@
 <body class="framed main-scrollable">
 	<div class="wrapper">
 		<nav class="navbar navbar-static-top header-navbar">
-			
+
 			<!--Mobile Menu-->
-			
+
 			<div class="header-navbar-mobile">
 				<div class="header-navbar-mobile__menu">
 					<button class="btn" type="button"><i class="fa fa-bars"></i></button>
@@ -67,7 +70,7 @@
 									{
 										@Html.AntiForgeryToken()
 										@Html.Hidden("Id", notification.Id)
-										
+
 										<div class="row">
 											<div class="col-md-12 text-center">
 												<span class="sender">@notification.Sender.DisplayName says:</span>
@@ -112,16 +115,15 @@
 							<li class="text-center"><a href="/TicketNotifications/Index">All Notifications </a></li>
 
 							@*<li><a href="products.html">Products</a></li>
-							<li><a href="orders.html">Orders</a></li>
-							<li><a href="users.html">Users</a></li>
-							<li class="divider" role="separator"></li>
-							<li><a href="login.html">Login</a></li>*@
+								<li><a href="orders.html">Orders</a></li>
+								<li><a href="users.html">Users</a></li>
+								<li class="divider" role="separator"></li>
+								<li><a href="login.html">Login</a></li>*@
 						</ul>
 					</li>
 				</ul>
 
 				<!--End Notifications-->
-
 				<!--Begin Logout Dropdown-->
 
 				<ul class="userbar nav navbar-nav">
@@ -188,10 +190,14 @@
 										<div class="nav-menu__right"><i class="fa fa-fw fa-angle-right arrow"></i></div>
 									</a>
 									<ul class="nav nav-menu__second collapse">
-										@if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Developer") || User.IsInRole("Submitter"))
+										@if (User.IsInRole("Admin"))
 										{
 											<li><a href="/Tickets/Index">Ticket Index</a></li>
 										}
+										@*@if (User.IsInRole("Project Manager") || User.IsInRole("Developer"))
+											{
+												<li><a href="/Tickets/MyProjectTickets">My Project Tickets</a></li>
+											}*@
 										@if (User.IsInRole("Submitter"))
 										{
 											<li><a href="/Tickets/Create">Create Ticket</a></li>
@@ -240,7 +246,7 @@
 					</div>
 				</div>
 			</div>
-		@RenderBody()
+			@RenderBody()
 		</div>
 	</div>
 	<script src="~/Scripts/jquery.min.js"></script>
@@ -252,6 +258,8 @@
 	<script src="~/Scripts/inputNumber.js"></script>
 	<script src="~/Scripts/bootstrap-switch.min.js"></script>
 	<script src="~/Scripts/main.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 	@*@Scripts.Render("~/bundles/jquery")*@
 	@*@Scripts.Render("~/bundles/bootstrap")*@
 	@RenderSection("scripts", required: false)

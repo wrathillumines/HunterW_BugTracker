@@ -99,6 +99,7 @@ namespace HunterW_BugTracker.Controllers
         //
         // POST: Demo User
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DemoLoginAsync(string demoEmail)
         {

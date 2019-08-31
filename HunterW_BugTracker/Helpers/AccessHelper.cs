@@ -84,6 +84,22 @@ namespace HunterW_BugTracker.Helpers
             }
         }
 
+        public bool UserCanViewProjectTicketList()
+        {
+            switch (this.CurrentRole)
+            {
+                case SystemRole.Admin:
+                    return false;
+                case SystemRole.ProjectManager:
+                    return this.CurrentUser.Projects.SelectMany(t => t.Tickets).Select(t => t.Id).Contains(Ticket.Id);
+                case SystemRole.Developer:
+                    return this.CurrentUser.Projects.SelectMany(t => t.Tickets).Select(t => t.Id).Contains(Ticket.Id);
+                case SystemRole.Submitter:
+                default:
+                    return false;
+            }
+        }
+
         public bool UserCanEditTicketStatus()
         {
             switch (this.CurrentRole)

@@ -1,4 +1,10 @@
-﻿<div class="main">
+﻿<style>
+	.chart250 {
+		height: 275px;
+	}
+</style>
+
+<div class="main">
 	<div class="main__scroll scrollbar-macosx">
 		<div class="main__cont">
 			<div class="container-fluid half-padding">
@@ -18,6 +24,51 @@
 									</p>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-md-9">
+									<div class="row">
+										<div class="col-md-12 text-center">
+											<h5>Tickets Per Project</h5>
+										</div>
+									</div>
+									<div class="row">
+										<div id="TicketChart" class="col-md-12 chart250"></div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="row">
+										<div class="col-md-12 text-center">
+											<h5>Ticket Statuses</h5>
+										</div>
+									</div>
+									<div class="row">
+										<div id="StatusChart" class="col-md-12 chart250"></div>
+									</div>
+								</div>
+							</div>
+							<hr />
+							<div class="row">
+								<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-12 text-center">
+											<h5>Ticket Priorities</h5>
+										</div>
+									</div>
+									<div class="row">
+										<div id="PriorityChart" class="col-md-12 chart250"></div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-12 text-center">
+											<h5>Ticket Types</h5>
+										</div>
+									</div>
+									<div class="row">
+										<div id="CategoryChart" class="col-md-12 chart250"></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -25,3 +76,84 @@
 		</div>
 	</div>
 </div>
+
+@section scripts {
+
+	<script type="text/javascript">
+		$(function () {
+			$.post('@Url.Action("MorrisProjectTicketsData", "Charts")').then(function (response) {
+				new Morris.Bar({
+					element: 'TicketChart',
+					data: response,
+					grid: false,
+					gridtextsize: 10,
+					gridTextColor: '#88939c',
+					hideHover: true,
+					xLabelAngle: 0,
+					xkey: 'label',
+					ykeys: ['value'],
+					labels: ['Ticket Count'],
+					resize: true
+				});
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(function () {
+			$.post('@Url.Action("MorrisPriorityData", "Charts")').then(function (response) {
+				new Morris.Bar({
+					element: 'PriorityChart',
+					data: response,
+					grid: false,
+					gridtextsize: 15,
+					gridTextColor: '#88939c',
+					hideHover: true,
+					xLabelAngle: 0,
+					xkey: 'label',
+					ykeys: ['value'],
+					labels: ['Ticket Count'],
+					resize: true
+				});
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(function () {
+			$.post('@Url.Action("MorrisCategoryData", "Charts")').then(function (response) {
+				new Morris.Bar({
+					element: 'CategoryChart',
+					data: response,
+					grid: false,
+					gridtextsize: 15,
+					gridTextColor: '#88939c',
+					hideHover: true,
+					xLabelAngle: 0,
+					xkey: 'label',
+					ykeys: ['value'],
+					labels: ['Ticket Count'],
+					resize: true
+				});
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(function () {
+			$.post('@Url.Action("MorrisStatusData", "Charts")').then(function (response) {
+				new Morris.Donut({
+					element: 'StatusChart',
+					data: response,
+					gridtextsize: 15,
+					labelColor: '#88939c',
+					xkey: 'label',
+					ykeys: ['value'],
+					labels: ['Ticket Count'],
+					resize: true
+				});
+			});
+		});
+	</script>
+
+}

@@ -29,6 +29,22 @@ namespace HunterW_BugTracker.Controllers
             return View(tickets.ToList());
         }
 
+        // GET: Submitter's Tickets
+        //[Authorize(Roles = "Submitter")]
+        //public ActionResult SubmitterIndex()
+        //{
+
+        //}
+
+        // GET: All Tickets For Projects That The User Is Assigned To
+        //[Authorize(Roles = "Project Manager, Developer")]
+        //public ActionResult MyProjectTickets()
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    return View("MyProjectTickets", db.ApplicationUserProjects.Where(t => t.ApplicationUser_Id == User.Identity).ToList().OrderByDescending(t => t.Created));
+            
+        //}
+
         // GET: Tickets/Dashboard
         [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
         public ActionResult Dashboard(int? id)

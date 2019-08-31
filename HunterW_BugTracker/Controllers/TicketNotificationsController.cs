@@ -17,13 +17,6 @@ namespace HunterW_BugTracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private NotificationHelper nHelp = new NotificationHelper();
 
-        //// GET: TicketNotifications
-        //public ActionResult Index()
-        //{
-        //    var ticketNotifications = db.TicketNotifications.Include(t => t.Recipient).Include(t => t.Sender).Include(t => t.Ticket);
-        //    return View(ticketNotifications.ToList().OrderByDescending(t => t.Created));
-        //}
-
         public ActionResult DeleteAll()
         {
             foreach (var notification in db.TicketNotifications)

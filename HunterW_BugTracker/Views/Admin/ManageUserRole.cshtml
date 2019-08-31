@@ -1,4 +1,4 @@
-﻿@using HunterW_BugTracker.Models
+﻿
 @{ 
 	ViewBag.Title = "Manage User Role";
 }
@@ -17,12 +17,12 @@
 								Assign a role to a user.
 							</p>
 						</div>
-					</div>
+						</div>
 				</div>
 			</div>
 			<div class="container-fluid half-padding">
 				<!-- BEGIN MAIN SECTION -->
-				@using (Html.BeginForm())
+				@using (Html.BeginForm("ManageUserRole","Admin", FormMethod.Post))
 				{
 					@Html.AntiForgeryToken()
 					@Html.Hidden("UserId", (string)ViewBag.UserId)

@@ -52,10 +52,10 @@ namespace HunterW_BugTracker.Controllers
         {
             foreach(var role in roleHelper.ListUserRoles(userId))
             {
-                roleHelper.RemoveUserFromRole(userId, roleName);
+                roleHelper.RemoveUserFromRole(userId, role);
             }
 
-            if(! string.IsNullOrEmpty(roleName))
+            if(!string.IsNullOrEmpty(roleName))
             {
                 roleHelper.AddUserToRole(userId, roleName);
             }

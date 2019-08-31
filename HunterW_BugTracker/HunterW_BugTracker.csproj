@@ -167,8 +167,10 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="ChartViewModels\MorrisBarChartData.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ChartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -283,7 +285,9 @@
     <Content Include="Content\selectize.bootstrap3.css" />
     <Content Include="Content\selectize.default.css" />
     <Content Include="Content\TicketDashboard.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="FileIcons\doc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -367,12 +371,13 @@
     <Content Include="Content\font-awesome.css.map" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-select.css.map" />
-    <None Include="private.config" />
+    <Content Include="private.config" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\hwerrortracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\charts.js" />
@@ -429,8 +434,8 @@
     <Content Include="Uploads\FallVAR2019RegistrationForm.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Views\Admin\ManageUserRole.cshtml" />
-    <None Include="Views\Admin\ManageUserProjects.cshtml" />
+    <Content Include="Views\Admin\ManageUserRole.cshtml" />
+    <Content Include="Views\Admin\ManageUserProjects.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Admin\AdminUserIndex.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -443,14 +448,6 @@
     <Content Include="Scripts\users.js" />
     <Content Include="Scripts\validation.js" />
     <Content Include="Views\Shared\blank.html" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -527,9 +524,18 @@
     <Content Include="Views\Manage\PasswordChangeSuccess.cshtml" />
     <Content Include="Views\Shared\HistoryPartial.cshtml" />
     <Content Include="Views\Home\DemoUser.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Charts\" />
     <Folder Include="Views\TicketsHelper\" />
     <Folder Include="Views\UploadHelper\" />
   </ItemGroup>
@@ -542,7 +548,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
