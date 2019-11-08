@@ -53,6 +53,20 @@ namespace HunterW_BugTracker.Helpers
             Ticket = ticket;
         }
 
+        public bool UserCanViewTicketList()
+        {
+            switch (this.CurrentRole)
+            {
+                case SystemRole.Developer:
+                case SystemRole.Submitter:
+                    return true;
+                case SystemRole.Admin:
+                case SystemRole.ProjectManager:
+                default:
+                    return false;
+            }
+        }
+
         public bool UserCanCreateATicket()
         {
             switch (this.CurrentRole)

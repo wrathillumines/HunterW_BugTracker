@@ -1,0 +1,98 @@
+﻿@using HunterW_BugTracker.Helpers
+@model IEnumerable<HunterW_BugTracker.Models.Ticket>
+
+@{
+	var linkHelper = new LinkHelper();
+}
+
+<!-- Data Tables Stuff -->
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+<div class="main">
+	<div class="main__scroll scrollbar-macosx">
+		<div class="main__cont">
+			<div class="container-fluid half-padding">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h3 class="panel-title">Tickets</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Below is a list of all tickets. You may sort them alphabetically by name or description, and you may manage them using the links on the right side of the screen. Click on a ticket title to view the details and comments for that ticket.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				@if (User.IsInRole("Submitter"))
+				{
+					<a href="@Url.Action("Create", "Tickets")">Create New Ticket</a>
+					<p></p>
+				}
+				<table id="userindextable" class="table">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.Title)
+							</th>
+							<th>
+								@Html.DisplayName("Project")
+							</th>
+							<th>
+								@Html.DisplayName("Created By")
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Created)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Updated)
+							</th>
+							<th>
+								@Html.DisplayName("Manage")
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.ActionLink(item.Title, "Details", new { id = item.Id })
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Project.Name)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.OwnerUser.DisplayName)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Created)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Updated)
+								</td>
+								<td>
+									@Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
+									@if (linkHelper.UserCanEditTicket(item))
+									{
+										@Html.ActionLink(" | History", "Index", "TicketHistories", new { id = item.Id }, null)
+										@Html.ActionLink(" | Edit", "Edit", new { id = item.Id })
+										@Html.ActionLink(" | Delete", "Delete", new { id = item.Id })
+									}
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$("#userindextable").DataTable();
+</script>

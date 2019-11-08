@@ -21,12 +21,13 @@ namespace HunterW_BugTracker.Controllers
         private UserRolesHelper rolesHelper = new UserRolesHelper();
 
         // GET: All Projects
-        [Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Admin, Project Manager, Demo Admin, Demo Project Manager")]
         public ActionResult Index()
         {
             return View(db.Projects.ToList());
         }
 
+        [Authorize(Roles = "Project Manager, Developer, Demo Project Manager, Demo Developer")]
         // GET: User's Assigned Projects
         [Authorize]
         public ActionResult UserIndex()
@@ -61,7 +62,7 @@ namespace HunterW_BugTracker.Controllers
         //ViewBag.Developers = new MultiSelectList();
 
         // GET: Projects/Create
-        [Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Admin, Project Manager, Demo Admin, Demo Project Manager")]
         public ActionResult Create()
         {
             return View();
@@ -87,7 +88,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: Projects/Edit/5
-        [Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Admin, Project Manager, Demo Admin, Demo Project Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -120,7 +121,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: Projects/Delete/5
-        [Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Admin, Project Manager, Demo Admin, Demo Project Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -157,7 +158,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         //GET: Submitter Project Index
-        [Authorize(Roles = "Submitter")]
+        [Authorize(Roles = "Submitter, Demo Submitter")]
         public ActionResult SubmitterProjectIndex(int? id)
         {
             Project project = db.Projects.Find(id);

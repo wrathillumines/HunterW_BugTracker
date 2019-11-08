@@ -17,7 +17,7 @@ namespace HunterW_BugTracker.Controllers
         private TicketsHelper tickHelper = new TicketsHelper();
 
         //GET: Admin
-        [Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Admin, Project Manager, Demo Admin, Demo Project Manager")]
         public ActionResult AdminUserIndex()
         {
             var users = db.Users.Select(u => new UserProfileViewModel
@@ -33,7 +33,7 @@ namespace HunterW_BugTracker.Controllers
             return View(users);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Demo Admin")]
         //GET: User Role
         public ActionResult ManageUserRole(string userId)
         {
@@ -63,7 +63,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         //GET: Manage User Projects
-        [Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Admin, Project Manager, Demo Admin, Demo Project Manager")]
         public ActionResult ManageUserProjects(string userId)
         {
             var projects = db.Projects.ToList();

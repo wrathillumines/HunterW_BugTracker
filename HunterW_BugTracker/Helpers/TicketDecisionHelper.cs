@@ -10,7 +10,7 @@ namespace HunterW_BugTracker.Helpers
 {
     public class TicketDecisionHelper : CommonHelper
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private static ApplicationDbContext db = new ApplicationDbContext();
         public bool TicketDetailIsViewableByUser(int tickedId)
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
@@ -31,7 +31,7 @@ namespace HunterW_BugTracker.Helpers
             return true;
         }
 
-        public bool TicketIsEditableByUser(Ticket ticket)
+        public static bool TicketIsEditableByUser(Ticket ticket)
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
             var myRole = RoleHelper.ListUserRoles(userId).FirstOrDefault();

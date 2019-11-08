@@ -3,8 +3,6 @@ namespace HunterW_BugTracker.Migrations
     using HunterW_BugTracker.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -22,7 +20,8 @@ namespace HunterW_BugTracker.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            #region roleManager
+            #region Seed Roles
+
             var roleManager = new RoleManager<IdentityRole>(
                 new RoleStore<IdentityRole>(context));
 
@@ -42,8 +41,26 @@ namespace HunterW_BugTracker.Migrations
             {
                 roleManager.Create(new IdentityRole { Name = "Submitter" });
             }
+            if (!context.Roles.Any(r => r.Name == "Demo Admin"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Demo Admin" });
+            }
+            if (!context.Roles.Any(r => r.Name == "Demo Project Manager"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Demo Project Manager" });
+            }
+            if (!context.Roles.Any(r => r.Name == "Demo Developer"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Demo Developer" });
+            }
+            if (!context.Roles.Any(r => r.Name == "Demo Submitter"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Demo Submitter" });
+            }
 
             #endregion
+
+            #region Seed Users
 
             //Create users that occupy roles
             var userManager = new UserManager<ApplicationUser>(
@@ -57,118 +74,236 @@ namespace HunterW_BugTracker.Migrations
                     Email = "hwphotog@gmail.com",
                     FirstName = "Hunter",
                     LastName = "Williams",
-                    DisplayName = "dhunterw"
+                    DisplayName = "dhunterw",
+                    AvatarUrl = "/Images/hunterw.jpg"
                 }, "atomicSkier_92");
             }
 
-            if (!context.Users.Any(u => u.Email == "dhwprojman@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "nbarber@hwerrortracker.com"))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "dhwprojman@mailinator.com",
-                    Email = "dhwprojman@mailinator.com",
-                    FirstName = "Project Manager",
-                    LastName = "Hunter",
-                    DisplayName = "dhwprojman"
+                    UserName = "nbarber@hwerrortracker.com",
+                    Email = "nbarber@hwerrortracker.com",
+                    FirstName = "Nancy",
+                    LastName = "Barber",
+                    DisplayName = "nbarber",
+                    AvatarUrl = "/Images/nancyb.jpg"
                 }, "letMein2!");
             }
 
-            if (!context.Users.Any(u => u.Email == "dhwdev@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "bmorris@hwerrortracker.com"))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "dhwdev@mailinator.com",
-                    Email = "dhwdev@mailinator.com",
-                    FirstName = "Developer",
-                    LastName = "Hunter",
-                    DisplayName = "dhwdev"
-                }, "Iwantin2!");
+                    UserName = "bmorris.com",
+                    Email = "bmorris@hwerrortracker.com",
+                    FirstName = "Brian",
+                    LastName = "Morris",
+                    DisplayName = "bmorris",
+                    AvatarUrl = "/Images/brianm.jpg"
+                }, "letMein2!");
             }
 
-            if (!context.Users.Any(u => u.Email == "dhwsub@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "awilson@hwerrortracker.com"))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "dhwsub@mailinator.com",
-                    Email = "dhwsub@mailinator.com",
-                    FirstName = "Submitter",
-                    LastName = "Hunter",
-                    DisplayName = "dhwsub"
-                }, "2Bornot2B?");
+                    UserName = "awilson@hwerrortracker.com",
+                    Email = "awilson@hwerrortracker.com",
+                    FirstName = "Amanda",
+                    LastName = "Wilson",
+                    DisplayName = "awilson",
+                    AvatarUrl = "/Images/amandaw.jpg"
+                }, "letMein2!");
+            }
+
+            if (!context.Users.Any(u => u.Email == "smartin@hwerrortracker.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "smartin@hwerrortracker.com",
+                    Email = "smartin@hwerrortracker.com",
+                    FirstName = "Shannon",
+                    LastName = "Martin",
+                    DisplayName = "smartin",
+                    AvatarUrl = "/Images/shannonm.jpg"
+                }, "letMein2!");
+            }
+
+            if (!context.Users.Any(u => u.Email == "dbutler@hwerrortracker.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "dbutler@hwerrortracker.com",
+                    Email = "dbutler@hwerrortracker.com",
+                    FirstName = "Daniel",
+                    LastName = "Butler",
+                    DisplayName = "dbutler",
+                    AvatarUrl = "/Images/danielb.jpg"
+                }, "letMein2!");
+            }
+
+            if (!context.Users.Any(u => u.Email == "jwhite@hwerrortracker.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "jwhite@hwerrortracker.com",
+                    Email = "jwhite@hwerrortracker.com",
+                    FirstName = "James",
+                    LastName = "White",
+                    DisplayName = "jwhite",
+                    AvatarUrl = "/Images/jamesw.jpg"
+                }, "letMein2!");
+            }
+
+            if (!context.Users.Any(u => u.Email == "sroberts@hwerrortracker.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "sroberts@hwerrortracker.com",
+                    Email = "sroberts@hwerrortracker.com",
+                    FirstName = "Stan",
+                    LastName = "Roberts",
+                    DisplayName = "sroberts",
+                    AvatarUrl = "/Images/stanr.jpg"
+                }, "letMein2!");
             }
 
             //Demo Users
-            if (!context.Users.Any(u => u.Email == "theadmindemouser@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "theadmindemouser@hwerrortracker.com"))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "theadmindemouser@mailinator.com",
-                    Email = "theadmindemouser@mailinator.com",
+                    UserName = "theadmindemouser@hwerrortracker.com",
+                    Email = "theadmindemouser@hwerrortracker.com",
                     FirstName = "Demo",
                     LastName = "Admin",
-                    DisplayName = "demoadmin"
+                    DisplayName = "demoadmin",
+                    AvatarUrl = "/Images/TheAdmin.png"
                 }, "D3m07h15!");
             }
 
-            if (!context.Users.Any(u => u.Email == "theprojectmanagerdemouser@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "theprojectmanagerdemouser@hwerrortracker.com"))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "theprojectmanagerdemouser@mailinator.com",
-                    Email = "theprojectmanagerdemouser@mailinator.com",
+                    UserName = "theprojectmanagerdemouser@hwerrortracker.com",
+                    Email = "theprojectmanagerdemouser@hwerrortracker.com",
                     FirstName = "Demo",
                     LastName = "Project Manager",
-                    DisplayName = "demopm"
+                    DisplayName = "demopm",
+                    AvatarUrl = "/Images/TheProjectManager.png"
                 }, "D3m07h15!");
             }
 
-            if (!context.Users.Any(u => u.Email == "thedeveloperdemouser@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "thedeveloperdemouser@hwerrortracker.com"))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "thedeveloperdemouser@mailinator.com",
-                    Email = "thedeveloperdemouser@mailinator.com",
+                    UserName = "thedeveloperdemouser@hwerrortracker.com",
+                    Email = "thedeveloperdemouser@hwerrortracker.com",
                     FirstName = "Demo",
                     LastName = "Developer",
-                    DisplayName = "demodeveloper"
+                    DisplayName = "demodeveloper",
+                    AvatarUrl = "/Images/TheDeveloper.png"
                 }, "D3m07h15!");
             }
 
-            if (!context.Users.Any(u => u.Email == "thesubmitterdemouser@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "thesubmitterdemouser@hwerrortracker.com"))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "thesubmitterdemouser@mailinator.com",
-                    Email = "thesubmitterdemouser@mailinator.com",
+                    UserName = "thesubmitterdemouser@hwerrortracker.com",
+                    Email = "thesubmitterdemouser@hwerrortracker.com",
                     FirstName = "Demo",
                     LastName = "Submitter",
-                    DisplayName = "demosubmitter"
+                    DisplayName = "demosubmitter",
+                    AvatarUrl = "/Images/TheSubmitter.png"
                 }, "D3m07h15!");
             }
+
+            #endregion
+
+            #region Add seeded users to roles
 
             var userId = userManager.FindByEmail("hwphotog@gmail.com").Id;
             userManager.AddToRole(userId, "Admin");
 
-            userId = userManager.FindByEmail("dhwprojman@mailinator.com").Id;
+            userId = userManager.FindByEmail("nbarber@hwerrortracker.com").Id;
             userManager.AddToRole(userId, "Project Manager");
 
-            userId = userManager.FindByEmail("dhwdev@mailinator.com").Id;
+            userId = userManager.FindByEmail("bmorris@hwerrortracker.com").Id;
             userManager.AddToRole(userId, "Developer");
 
-            userId = userManager.FindByEmail("dhwsub@mailinator.com").Id;
+            userId = userManager.FindByEmail("awilson@hwerrortracker.com").Id;
             userManager.AddToRole(userId, "Submitter");
 
-            userId = userManager.FindByEmail("theadmindemouser@mailinator.com").Id;
-            userManager.AddToRole(userId, "Admin");
+            userId = userManager.FindByEmail("theadmindemouser@hwerrortracker.com").Id;
+            userManager.AddToRole(userId, "Demo Admin");
 
-            userId = userManager.FindByEmail("theprojectmanagerdemouser@mailinator.com").Id;
+            userId = userManager.FindByEmail("theprojectmanagerdemouser@hwerrortracker.com").Id;
+            userManager.AddToRole(userId, "Demo Project Manager");
+
+            userId = userManager.FindByEmail("thedeveloperdemouser@hwerrortracker.com").Id;
+            userManager.AddToRole(userId, "Demo Developer");
+
+            userId = userManager.FindByEmail("thesubmitterdemouser@hwerrortracker.com").Id;
+            userManager.AddToRole(userId, "Demo Submitter");
+
+            userId = userManager.FindByEmail("smartin@hwerrortracker.com").Id;
+            userManager.AddToRole(userId, "Developer");
+
+            userId = userManager.FindByEmail("dbutler@hwerrortracker.com").Id;
             userManager.AddToRole(userId, "Project Manager");
 
-            userId = userManager.FindByEmail("thedeveloperdemouser@mailinator.com").Id;
+            userId = userManager.FindByEmail("sroberts@hwerrortracker.com").Id;
+            userManager.AddToRole(userId, "Submitter");
+
+            userId = userManager.FindByEmail("jwhite@hwerrortracker.com").Id;
             userManager.AddToRole(userId, "Developer");
 
-            userId = userManager.FindByEmail("thesubmitterdemouser@mailinator.com").Id;
-            userManager.AddToRole(userId, "Submitter");
+            #endregion
+
+            context.SaveChanges();
+
+
+            #region Ticket Types
+
+            context.TicketTypes.AddOrUpdate(
+                t => t.Name,
+                    new TicketType { Name = "Complaint", Description = "A user has filed a complaint about the application." },
+                    new TicketType { Name = "Error", Description = "A user has reported an error within the application." },
+                    new TicketType { Name = "Typo", Description = "A user has reported a spelling and/or grammar mistake in the application." },
+                    new TicketType { Name = "Feature Suggetsion", Description = "A user has suggested a feature that could be added to the application." }
+                );
+
+            #endregion
+
+            #region Ticket Statuses
+
+            context.TicketStatuses.AddOrUpdate(
+                t => t.Name,
+                    new TicketStatus { Name = "New", Description = "Work has not yet begun on this ticket." },
+                    new TicketStatus { Name = "In Progress", Description = "Work has begun on this ticket." },
+                    new TicketStatus { Name = "Under Review", Description = "This ticket is being reviewed for completion." },
+                    new TicketStatus { Name = "Finished", Description = "Work has been successfully completed on this ticket." }
+                );
+
+            #endregion
+
+            #region Ticket Priorities
+
+            context.TicketPriorities.AddOrUpdate(
+                t => t.Name,
+                    new TicketPriority { Name = "Urgent", Description = "Ticket is of the utmost importance." },
+                    new TicketPriority { Name = "High", Description = "Ticket is very important." },
+                    new TicketPriority { Name = "Medium", Description = "Ticket should be handled as normal." },
+                    new TicketPriority { Name = "Low", Description = "Ticket is of lesser importance." },
+                    new TicketPriority { Name = "Minimal", Description = "Ticket should be handled with lowest priority." }
+                );
+
+            #endregion
         }
     }
 }

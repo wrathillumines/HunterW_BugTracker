@@ -10,7 +10,7 @@ namespace HunterW_BugTracker.Helpers
     public abstract class CommonHelper
     {
         protected static ApplicationDbContext Db = new ApplicationDbContext();
-        protected UserRolesHelper RoleHelper = new UserRolesHelper();
+        protected static UserRolesHelper RoleHelper = new UserRolesHelper();
         protected ProjectsHelper ProjectHelper = new ProjectsHelper();
         protected ApplicationUser CurrentUser = new ApplicationUser();
         protected SystemRole CurrentRole = SystemRole.None;

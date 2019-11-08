@@ -40,7 +40,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: TicketAttachments/Create
-        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId");
@@ -79,7 +79,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: TicketAttachments/Edit/5
-        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -114,7 +114,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: TicketAttachments/Delete/5
-        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

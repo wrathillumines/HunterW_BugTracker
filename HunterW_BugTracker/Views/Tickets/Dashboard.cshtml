@@ -11,6 +11,18 @@
 		position: absolute;
 		z-index: -1;
 	}
+
+	.scrollcomments {
+		height: 600px;
+	}
+
+	.scrollhistory {
+		height: 300px;
+	}
+
+	.scrollattachment {
+		height: 500px;
+	}
 </style>
 
 <div class="main">
@@ -33,10 +45,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
+
+						<!-- title -->
+
 						<div class="row">
-
-							<!-- title -->
-
 							<div class="col-md-12">
 								<section class="panel panel-default">
 									<header class="panel-heading">
@@ -49,10 +61,9 @@
 							</div>
 						</div>
 
+						<!-- description -->
+
 						<div class="row">
-
-							<!-- description -->
-
 							<div class="col-md-12">
 								<section class="panel panel-default">
 									<header class="panel-heading">
@@ -205,55 +216,67 @@
 						<!-- comment list -->
 
 						<div class="row">
-							<div class="col-md-10 col-md-offset-1">
-								@foreach (var comment in Model.TicketComments.OrderByDescending(c => c.Created))
-								{
-									<hr />
+							<div class="scrollable scrollbar-macosx scrollcomments">
+								<div class="col-md-11">
 									<div class="row">
-										<h4>Comment from @comment.Author.DisplayName on @comment.Created.ToString("MMMM d, yy") at @comment.Created.ToString("h:mm tt")</h4>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											@comment.CommentBody
-										</div>
-									</div>
-									<br />
-									<div class="row">
-										<div class="col-md-12">
-											@if (User.Identity.IsAuthenticated)
+										<div class="col-md-10 col-md-offset-1">
+											@foreach (var comment in Model.TicketComments.OrderByDescending(c => c.Created))
 											{
-												using (Html.BeginForm("Edit", "TicketComments", FormMethod.Get))
-												{
-													@Html.Hidden("Id", comment.Id)
-													<button type="submit" class="btn btn-primary">Edit</button>
-												}
+												<hr />
+												<div class="row">
+													<h4>Comment from @comment.Author.DisplayName on @comment.Created.ToString("MMMM d, yy") at @comment.Created.ToString("h:mm tt")</h4>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														@comment.CommentBody
+													</div>
+												</div>
 												<br />
-												using (Html.BeginForm("Delete", "TicketComments", FormMethod.Get))
-												{
-													@Html.Hidden("Id", comment.Id)
-													<button type="submit" class="btn btn-primary">Delete</button>
-												}
+												<div class="row">
+													<div class="col-md-12">
+														@if (User.Identity.IsAuthenticated)
+														{
+															using (Html.BeginForm("Edit", "TicketComments", FormMethod.Get))
+															{
+																@Html.Hidden("Id", comment.Id)
+																<button type="submit" class="btn btn-primary">Edit</button>
+															}
+															<br />
+															using (Html.BeginForm("Delete", "TicketComments", FormMethod.Get))
+															{
+																@Html.Hidden("Id", comment.Id)
+																<button type="submit" class="btn btn-primary">Delete</button>
+															}
+														}
+													</div>
+												</div>
 											}
 										</div>
 									</div>
-								}
+								</div>
 							</div>
 						</div>
 					</div>
 
 					<div class="col-md-6">
+
+						<!-- history -->
+
 						<div class="row">
-							<div class="col-md-12">
-
-								<!-- history -->
-
-								@Html.Partial("HistoryPartial", Model.TicketHistories, new ViewDataDictionary())
+							<div class="scrollable scrollbar-macosx scrollhistory">
+								<div class="col-md-11 col-md-offset-1">
+									<div class="row">
+										<div class="col-md-12">
+											@Html.Partial("HistoryPartial", Model.TicketHistories, new ViewDataDictionary())
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
+
+						<!-- attachments -->
+
 						<div class="row">
-
-							<!-- attachments -->
-
 							<div class="col-md-12">
 								<section class="panel panel-default">
 									<header class="panel-heading">
@@ -309,44 +332,49 @@
 											</div>
 										</div>
 										<hr />
-
-										@foreach (var attachment in Model.TicketAttachments)
-										{
-											<div class="row">
-												<div class="col-md-4">
-													<div class="row">
-														<div class="col-md-12">
-															<img src="@UploadHelper.GetIconPath(attachment.AttachmentUrl)" />
+										<div class="row">
+											<div class="scrollable scrollbar-macosx scrollattachment">
+												<div class="col-md-11 col-md-offset-1">
+													@foreach (var attachment in Model.TicketAttachments)
+													{
+														<div class="row">
+															<div class="col-md-4">
+																<div class="row">
+																	<div class="col-md-12">
+																		<img src="@UploadHelper.GetIconPath(attachment.AttachmentUrl)" />
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-12">
+																		<a target="_blank" href="@attachment.AttachmentUrl">@Path.GetFileNameWithoutExtension(attachment.AttachmentUrl)</a>
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-8">
+																<div class="row">
+																	<div class="col-md-6">
+																		@attachment.Created.ToString("MMMM d, yyyy")
+																	</div>
+																	<div class="col-md-6">
+																		@attachment.User.DisplayName
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-12">
+																		@attachment.Title
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-12">
+																		@attachment.Description
+																	</div>
+																</div>
+															</div>
 														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-12">
-															<a target="_blank" href="@attachment.AttachmentUrl">@Path.GetFileNameWithoutExtension(attachment.AttachmentUrl)</a>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-8">
-													<div class="row">
-														<div class="col-md-6">
-															@attachment.Created.ToString("MMMM d, yyyy")
-														</div>
-														<div class="col-md-6">
-															@attachment.User.DisplayName
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-12">
-															@attachment.Title
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-12">
-															@attachment.Description
-														</div>
-													</div>
+													}
 												</div>
 											</div>
-										}
+										</div>
 									</div>
 								</section>
 							</div>

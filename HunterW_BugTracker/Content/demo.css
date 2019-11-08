@@ -61,7 +61,7 @@
   padding-bottom: 0;
 }
 .demo__label {
-  color: #5e6870;
+  color: #a7b9c7;
   font-size: 14px;
   line-height: 16px;
 }
@@ -71,7 +71,7 @@
 .demo__size {
   display: inline-block;
   margin-right: 8px;
-  color: #5e6870;
+  color: #a7b9c7;
   font-size: 18px;
   cursor: pointer;
 }

@@ -50,7 +50,7 @@ namespace HunterW_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,UserId,CommentBody,Created")] TicketComment ticketComment, string CommentBody)
+        public ActionResult Create([Bind(Include = "Id,TicketId,UserId,CommentBody,Created")] TicketComment ticketComment, string CommentBody, int id)
         {
             if (ModelState.IsValid)
             {

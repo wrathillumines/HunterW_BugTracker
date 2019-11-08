@@ -49,13 +49,19 @@
 					</dd>
 				</dl>
 
+				<div class="row">
+					<div class="col-md-3 text-center">
+						<a href="/Projects/Index">Return to Projects Index</a>
+					</div>
+				</div>
+
 				<hr />
 				<div class="row">
 					<div class="col-xs-1 col-xs-offset-1">
 						<h6>TICKETS</h6>
 					</div>
 					<div class="col-xs-8">
-						<h6>This list starts with the most recent tickets. Click on the ticket title to view details of that ticket.</h6>
+						<h6>This list starts with the most recent tickets. Click on the ticket title to view dashboard for that ticket.</h6>
 					</div>
 				</div>
 				<br />
@@ -69,8 +75,12 @@
 									@Html.DisplayName("Ticket Title")
 								</dt>
 
-								<dd>
+								@*<dd>
 									@Html.DisplayFor(modelItem => item.Title)
+								</dd>*@
+
+								<dd>
+									@Html.ActionLink(item.Title, "Dashboard", "Tickets", new { Id = item.Id }, null)
 								</dd>
 
 								<dt>

@@ -84,7 +84,6 @@ namespace HunterW_BugTracker.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToAction("Dashboard", "Home");
-                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -220,32 +219,6 @@ namespace HunterW_BugTracker.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }
-
-        //
-        // GET: Avatar Upload
-        [AllowAnonymous]
-        public ActionResult UploadAvatar()
-        {
-            return View();
-        }
-
-        //
-        //POST: Avatar Upload
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<ActionResult> UploadAvatar([Bind(Include = "AvatarUrl")] UploadAvatarViewModel avatar, HttpPostedFileBase image)
-        {
-        if (ModelState.IsValid)
-        //ModelState does not appear to be valid
-            if (ImageUploadValidator.IsWebFriendlyImage(image))
-            {
-                var fileName = Path.GetFileName(image.FileName);
-                image.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), fileName));
-                avatar.AvatarUrl = "/Avatars/" + fileName;
-            }
-            db.SaveChanges();
-            return RedirectToAction("Dashboard", "Home");
         }
 
         //

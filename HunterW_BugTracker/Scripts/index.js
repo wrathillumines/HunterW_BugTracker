@@ -42,7 +42,7 @@ $(document).ready(function() {
 		],
 		colors: ['#1c8ed7', '#FED42A', '#20c05c', '#1e59d9'],
 		backgroundColor: '#30363c',
-		labelColor: '#88939C',
+		labelColor: '#cadae7',
 		resize: true
 	});
 

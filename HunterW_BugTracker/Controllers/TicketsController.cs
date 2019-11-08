@@ -22,10 +22,10 @@ namespace HunterW_BugTracker.Controllers
         private TicketsHelper tickHelper = new TicketsHelper();
 
         // GET: Tickets
-        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
+        [Authorize]
         public ActionResult Index()
         {
-            var tickets = db.Tickets.Include(t => t.AssignedToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
+            var tickets = db.Tickets.Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
             return View(tickets.ToList());
         }
 
@@ -42,11 +42,11 @@ namespace HunterW_BugTracker.Controllers
         //{
         //    var userId = User.Identity.GetUserId();
         //    return View("MyProjectTickets", db.ApplicationUserProjects.Where(t => t.ApplicationUser_Id == User.Identity).ToList().OrderByDescending(t => t.Created));
-            
+
         //}
 
         // GET: Tickets/Dashboard
-        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
+        [Authorize]
         public ActionResult Dashboard(int? id)
         {
             if (id == null)
@@ -62,7 +62,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: Tickets/Details/5
-        [Authorize(Roles = "Admin, Project Manager, Developer, Submitter")]
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -78,7 +78,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // GET: Tickets/Create
-        [Authorize(Roles = "Submitter")]
+        [Authorize(Roles = "Submitter, Demo Submitter")]
         public ActionResult Create()
         {
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
@@ -112,6 +112,20 @@ namespace HunterW_BugTracker.Controllers
             return View(ticket);
         }
 
+        //
+        //GET: My Tickets
+        [Authorize(Roles = "Developer, Demo Developer")]
+        public ActionResult MyTickets()
+        {
+            var userId = User.Identity.GetUserId();
+            var myRole = rolesHelper.ListUserRoles(userId).FirstOrDefault();
+            var myTickets = new List<Ticket>();
+
+            myTickets = db.Tickets.Where(t => t.AssignedToUserId == userId).ToList();
+
+            return View("Index", myTickets);
+        }
+
         // GET: Tickets/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -124,12 +138,19 @@ namespace HunterW_BugTracker.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "DisplayName", ticket.AssignedToUserId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
-            ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
-            ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", ticket.TicketStatusId);
-            ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
-            return View(ticket);
+            if (TicketDecisionHelper.TicketIsEditableByUser(ticket))
+            {
+                ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "DisplayName", ticket.AssignedToUserId);
+                ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
+                ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
+                ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", ticket.TicketStatusId);
+                ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
+                return View(ticket);
+            }
+            else
+            {
+                return RedirectToAction("Dashboard", "Home");
+            }
         }
 
         // POST: Tickets/Edit/5
@@ -232,6 +253,7 @@ namespace HunterW_BugTracker.Controllers
         //}
 
         // GET: Tickets/Delete/5
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -247,6 +269,7 @@ namespace HunterW_BugTracker.Controllers
         }
 
         // POST: Tickets/Delete/5
+        [Authorize(Roles = "Admin, Project Manager, Developer")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

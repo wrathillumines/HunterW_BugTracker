@@ -9,11 +9,11 @@ table.dataTable {
   border-spacing: 0;
 }
 input {
-  border: #5e6870;
+  border: #a7b9c7;
   background-color: #1f2326
 }
 select {
-  border: #5e6870;
+  border: #a7b9c7;
   background-color: #1c2023
 }
   /*
@@ -311,13 +311,13 @@ table.dataTable td {
   text-decoration: none !important;
   cursor: pointer;
   *cursor: hand;
-  color: #5e6870 !important;
+  color: #a7b9c7 !important;
   border: 1px solid transparent;
   border-radius: 2px;
 }
     .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-        color: #5e6870 !important;
-        border: 1px solid #5e6870;
+        color: #a7b9c7 !important;
+        border: 1px solid #a7b9c7;
         background-color: black;
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1c2023), color-stop(100%, #1c2023));
         /* Chrome,Safari4+ */
@@ -334,7 +334,7 @@ table.dataTable td {
     }
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
   cursor: default;
-  color: #5e6870 !important;
+  color: #a7b9c7 !important;
   border: 1px solid transparent;
   background: transparent;
   box-shadow: none;
@@ -400,7 +400,7 @@ table.dataTable td {
 .dataTables_wrapper .dataTables_info,
 .dataTables_wrapper .dataTables_processing,
 .dataTables_wrapper .dataTables_paginate {
-  color: #5e6870;
+  color: #a7b9c7;
 }
 .dataTables_wrapper .dataTables_scroll {
   clear: both;

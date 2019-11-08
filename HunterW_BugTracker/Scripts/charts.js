@@ -140,7 +140,7 @@ $(document).ready(function() {
 					],
 					colors: ['#1c8ed7', '#1e59d9', '#20c05c', '#FF5722'],
 					backgroundColor: '#30363c',
-					labelColor: '#88939C',
+					labelColor: '#cadae7',
 					resize: true
 				});
 				break;

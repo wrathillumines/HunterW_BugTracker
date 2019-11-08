@@ -219,31 +219,10 @@
     <Compile Include="Utilities\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Avatars\about-me-img.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Avatars\about-me-imgsmall.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Avatars\sr6900.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Avatars\sr6900square.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Avatars\TheAdmin.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Avatars\TheDeveloper.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Avatars\TheProjectManager.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Avatars\TheSubmitter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Avatars\_DHW0024_800px.jpg">
+    <Content Include="Images\amandaw.jpg" />
+    <Content Include="Images\brianm.jpg" />
+    <Content Include="Images\danielb.jpg" />
+    <Content Include="Images\hunterw.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\awesome-bootstrap-checkbox.css" />
@@ -340,15 +319,19 @@
     <Content Include="Images\HWlogo_transparent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\jamesw.jpg" />
+    <Content Include="Images\nancyb.jpg" />
     <Content Include="Images\nophoto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\paint.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\shannonm.jpg" />
     <Content Include="Images\sprite-skin-flat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\stanr.jpg" />
     <Content Include="Images\TheAdmin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -526,6 +509,7 @@
     <Content Include="Views\Home\DemoUser.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Tickets\MyTickets.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -535,6 +519,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Avatars\" />
     <Folder Include="Views\Charts\" />
     <Folder Include="Views\TicketsHelper\" />
     <Folder Include="Views\UploadHelper\" />

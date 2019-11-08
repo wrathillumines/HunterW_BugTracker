@@ -165,7 +165,7 @@
 
 								<!--USERS-->
 
-								@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+								@if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo Admin") || User.IsInRole("Demo Project Manager"))
 								{
 									<li>
 										<a href="#">
@@ -183,6 +183,8 @@
 
 								<!--TICKETS-->
 
+								@if (User.IsInRole("Admin") || User.IsInRole("Submitter") || User.IsInRole("Demo Submitter"))
+								{
 								<li>
 									<a href="#">
 										<div class="nav-menu__ico"><i class="fa fa-fw fa-tags"></i></div>
@@ -198,32 +200,38 @@
 											{
 												<li><a href="/Tickets/MyProjectTickets">My Project Tickets</a></li>
 											}*@
-										@if (User.IsInRole("Submitter"))
+										@if (User.IsInRole("Submitter") || User.IsInRole("Demo Submitter"))
 										{
 											<li><a href="/Tickets/Create">Create Ticket</a></li>
 										}
-										<li><a href="@Url.Action("Dashboard", "TicketHistories")">History</a></li>
+										@*<li><a href="@Url.Action("Dashboard", "TicketHistories")">History</a></li>*@
 									</ul>
 								</li>
+								}
 
 								<!--PROJECTS-->
 
-								<li>
-									<a href="#">
-										<div class="nav-menu__ico"><i class="fa fa-fw fa-flask"></i></div>
-										<div class="nav-menu__text"><span>Projects</span></div>
-										<div class="nav-menu__right"><i class="fa fa-fw fa-angle-right arrow"></i></div>
-									</a>
-									<ul class="nav nav-menu__second collapse">
-										<li><a href="/Projects/UserIndex">My Projects</a></li>
-										@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-										{
-											<li><a href="/Projects/Index">All Projects</a></li>
-											<li><a href="/Projects/Create">Create Project</a></li>
-											<li><a href="#">Assign Users</a></li>
-										}
-									</ul>
-								</li>
+								@if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Developer") || User.IsInRole("Demo Admin") || User.IsInRole("Demo Project Manager") || User.IsInRole("Demo Developer"))
+								{
+									<li>
+										<a href="#">
+											<div class="nav-menu__ico"><i class="fa fa-fw fa-flask"></i></div>
+											<div class="nav-menu__text"><span>Projects</span></div>
+											<div class="nav-menu__right"><i class="fa fa-fw fa-angle-right arrow"></i></div>
+										</a>
+										<ul class="nav nav-menu__second collapse">
+											@if (User.IsInRole("Project Manager") || User.IsInRole("Developer") || User.IsInRole("Demo Project Manager") || User.IsInRole("Demo Developer"))
+											{
+												<li><a href="/Projects/UserIndex">My Projects</a></li>
+											}
+											@if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo Admin") || User.IsInRole("Demo Project Manager"))
+											{
+												<li><a href="/Projects/Index">All Projects</a></li>
+												<li><a href="/Projects/Create">Create Project</a></li>
+											}
+										</ul>
+									</li>
+								}
 							</ul>
 
 							<!-- SECOND SET OF SIDEBAR NAV STUFF -->
